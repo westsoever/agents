@@ -1,6 +1,6 @@
 ---
 name: gitbook-docs
-description: Write or update GitBook documentation so it fits the site's existing structure and style, through the GitBook MCP (change requests, read-back, merge). Use this whenever the user asks to write, add, update, mirror or publish something "into GitBook", "in the gitbook", "under <section> in GitBook", or on technobbq.gitbook.io, e.g. "write up the explanation of the tool into the gitbook under Tools/SpeakerFinder", "mirror the miso structure from technobbq.gitbook.io", "put this .md into GitBook under tools-and-resources/miso". Also use it when a local doc (README, docs/*.md, a spec) should end up on a GitBook page, even if the user only names the section.
+description: Write or update GitBook documentation in ASD-STE100 (Simplified Technical English) so it fits the site's existing structure, through the GitBook MCP (change requests, read-back, merge). Use this whenever the user asks to write, add, update, mirror or publish something "into GitBook", "in the gitbook", "under <section> in GitBook", or on technobbq.gitbook.io, e.g. "write up the explanation of the tool into the gitbook under Tools/SpeakerFinder", "mirror the miso structure from technobbq.gitbook.io", "put this .md into GitBook under tools-and-resources/miso". Also use it when a local doc (README, docs/*.md, a spec) should end up on a GitBook page, even if the user only names the section.
 ---
 
 # GitBook docs
@@ -19,7 +19,7 @@ A GitBook site is a tree: sites, sections, spaces, pages. Most bad GitBook write
 - `search` for the topic before writing anything. If a page about it already exists, update that page rather than adding a second one.
 
 ### 2. Learn the local style
-Read one or two sibling pages in the target section with `get_page`. Note the heading levels, whether pages open with a one-line summary, how they use lists, tables and hints, the language (English or Danish) and the length. Match them. A page that follows its neighbours needs no explanation; a page that doesn't looks bolted on.
+Read one or two sibling pages in the target section with `get_page`. Note the heading levels, whether pages open with a one-line summary, how they use lists, tables and hints, the language (English or Danish) and the length. Match their layout. The wording follows the ASD-STE100 rules in step 3, and those rules win over the neighbours' tone. A page that follows its neighbours needs no explanation; a page that doesn't looks bolted on.
 
 ### 3. Draft from the source of truth
 Write from the real material the user pointed at: the repo's README, `docs/*.md`, a spec, or the current conversation. Don't invent features. For a tool page, the useful shape is usually:
@@ -29,6 +29,18 @@ Write from the real material the user pointed at: the repo's README, `docs/*.md`
 - where the code and owners are.
 
 Keep internal-only details (tokens, private URLs, customer data) out of a published docs site.
+
+**Write in ASD-STE100 (Simplified Technical English).** Everything written into GitBook follows this standard, so a reader who is not a native English speaker, or who is in a hurry, understands it the first time. The rules that matter most:
+- Write instructions as short imperative sentences, one action per sentence: "Open the settings page." Use at most 20 words in an instruction and 25 in a description.
+- Put a warning or caution before the step it applies to, not after.
+- Use numbered lists for steps that must happen in order.
+- Use the active voice and simple tenses. Avoid the passive ("the file is saved by the app") and avoid -ing forms as verbs ("is running").
+- Keep the articles (the, a). Do not drop them to save space, and repeat the noun when a pronoun could point to two things.
+- Give each thing one name and keep it. Do not switch between "app", "tool" and "program" for the same thing. Keep real product, menu and command names exactly as the interface shows them.
+- Choose the simplest common word ("use", not "utilize"; "start", not "commence"). No idioms or figurative language.
+- Keep each paragraph to one topic and at most six sentences.
+
+STE is an English standard. If the sibling pages are in Danish, keep the Danish and apply the same spirit (short, active, one action per sentence), and say in your report that the page is not formal STE.
 
 "Mirror the structure" requests (like rebuilding the miso section somewhere else) mean copying the page tree and titles first, then filling in content. Create parent pages before children, so the order and nesting match.
 
@@ -40,7 +52,7 @@ Keep internal-only details (tokens, private URLs, customer data) out of a publis
 5. Images: upload with an `insert_files` change, give each file a `ref`, and use a public `url` where possible, never an inline `data:` URI.
 
 ### 5. Read it back
-Read the page from the change request again and check three things: it renders as markdown (no escaped headings or lost lists), it sits under the intended parent, and its links resolve. Fix it in the same change request if not.
+Read the page from the change request again and check three things: it renders as markdown (no escaped headings or lost lists), it sits under the intended parent, its links resolve, and the sentences follow the STE rules (no long sentences, no passive voice, one action per step). Fix it in the same change request if not.
 
 ### 6. Merge only as far as the user asked
 `submit_or_merge_change_request` publishes the change to the live site. Decide from the request:
