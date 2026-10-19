@@ -1,7 +1,7 @@
 ---
 name: repo-health
-description: Repo hygiene audit — orphaned docs, stale docs, stale plan, and broken links
-allowed_tools: ["Read", "Bash"]
+description: Repo hygiene audit of the docs — orphaned docs, stale docs, a stale plan file, and broken links — ending in a fix list. Use when asked to check repo health, audit the docs, or find broken links.
+allowed-tools: Read, Bash
 ---
 
 # Repo Health
