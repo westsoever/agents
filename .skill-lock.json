@@ -1,53 +1,224 @@
 {
   "version": 3,
   "skills": {
-    "grill-me": {
-      "source": "mattpocock/skills",
+    "task-prd-creator": {
+      "source": "shipshitdev/library",
       "sourceType": "github",
-      "sourceUrl": "https://github.com/mattpocock/skills.git",
-      "skillPath": "skills/productivity/grill-me/SKILL.md",
-      "skillFolderHash": "c817f6f36acd483294144694a935a76d3e3eb101",
-      "pluginName": "mattpocock-skills",
-      "installedAt": "2026-07-28T11:02:55.135Z",
-      "updatedAt": "2026-07-28T11:09:32.895Z"
+      "sourceUrl": "https://github.com/shipshitdev/library.git",
+      "skillPath": "skills/task-prd-creator/SKILL.md",
+      "skillFolderHash": "2022d0829540b24ebdd944249447d6194cf9300e",
+      "installedAt": "2026-03-03T11:36:07.436Z",
+      "updatedAt": "2026-03-03T11:36:07.436Z"
     },
     "find-skills": {
       "source": "vercel-labs/skills",
       "sourceType": "github",
       "sourceUrl": "https://github.com/vercel-labs/skills.git",
       "skillPath": "skills/find-skills/SKILL.md",
-      "skillFolderHash": "76a98a285cb0434f3d39e1a873823556330e398b",
-      "installedAt": "2026-07-28T11:02:58.500Z",
-      "updatedAt": "2026-07-28T11:02:58.500Z"
+      "skillFolderHash": "c2f31172b6f256272305a5e6e7228b258446899f",
+      "installedAt": "2026-03-03T11:36:12.785Z",
+      "updatedAt": "2026-03-03T11:36:12.785Z"
     },
-    "supabase-postgres-best-practices": {
-      "source": "supabase/agent-skills",
+    "cmux": {
+      "source": "manaflow-ai/cmux",
       "sourceType": "github",
-      "sourceUrl": "https://github.com/supabase/agent-skills.git",
-      "skillPath": "skills/supabase-postgres-best-practices/SKILL.md",
-      "skillFolderHash": "27bde25111c4cd5e6f803fc9db5fbffe27bb26cf",
-      "pluginName": "postgres-best-practices",
-      "installedAt": "2026-09-05T16:31:15.076Z",
-      "updatedAt": "2026-09-05T16:31:15.076Z"
+      "sourceUrl": "https://github.com/manaflow-ai/cmux.git",
+      "skillPath": "skills/cmux/SKILL.md",
+      "skillFolderHash": "c51473e48c0c9a13cfc9dffe0a9f2193bbdfd6f2",
+      "installedAt": "2026-03-12T14:45:31.481Z",
+      "updatedAt": "2026-03-12T14:45:31.481Z"
     },
-    "supabase": {
-      "source": "supabase/agent-skills",
+    "cmux-browser": {
+      "source": "manaflow-ai/cmux",
       "sourceType": "github",
-      "sourceUrl": "https://github.com/supabase/agent-skills.git",
-      "skillPath": "skills/supabase/SKILL.md",
-      "skillFolderHash": "3c890031c3df7b4ea2561bd3a452a94df0e9a53d",
-      "pluginName": "supabase",
-      "installedAt": "2026-09-05T16:31:15.078Z",
-      "updatedAt": "2026-09-05T16:31:15.078Z"
+      "sourceUrl": "https://github.com/manaflow-ai/cmux.git",
+      "skillPath": "skills/cmux-browser/SKILL.md",
+      "skillFolderHash": "6d5dfc4de15faae37f932fa71f2bc9943bd2dafe",
+      "installedAt": "2026-03-12T14:45:32.116Z",
+      "updatedAt": "2026-03-12T14:45:32.116Z"
     },
-    "no-ai-slop": {
-      "source": "petergyang/no-ai-slop",
+    "cmux-debug-windows": {
+      "source": "manaflow-ai/cmux",
       "sourceType": "github",
-      "sourceUrl": "https://github.com/petergyang/no-ai-slop.git",
-      "skillPath": "skills/no-ai-slop/SKILL.md",
-      "skillFolderHash": "3d8be37cd59f6601cbc33676ecaf5b42865daf63",
-      "installedAt": "2026-09-08T11:11:08.555Z",
-      "updatedAt": "2026-09-08T11:11:31.700Z"
+      "sourceUrl": "https://github.com/manaflow-ai/cmux.git",
+      "skillPath": "skills/cmux-debug-windows/SKILL.md",
+      "skillFolderHash": "280f3cb196821b6b8808801f151a803d5efa8d93",
+      "installedAt": "2026-03-12T14:45:33.131Z",
+      "updatedAt": "2026-03-12T14:45:33.131Z"
+    },
+    "cmux-markdown": {
+      "source": "manaflow-ai/cmux",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/manaflow-ai/cmux.git",
+      "skillPath": "skills/cmux-markdown/SKILL.md",
+      "skillFolderHash": "c6cf70a1ad9f98867a652dc03ded80905c2706c8",
+      "installedAt": "2026-03-12T14:45:33.847Z",
+      "updatedAt": "2026-03-12T14:45:33.847Z"
+    },
+    "release": {
+      "source": "manaflow-ai/cmux",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/manaflow-ai/cmux.git",
+      "skillPath": "skills/release/SKILL.md",
+      "skillFolderHash": "bcf584e204580e1dd06ed9ebed3624d7310ab010",
+      "installedAt": "2026-03-12T14:45:34.624Z",
+      "updatedAt": "2026-03-12T14:45:34.624Z"
+    },
+    "hyperframes": {
+      "source": "heygen-com/hyperframes",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/heygen-com/hyperframes.git",
+      "skillPath": "skills/hyperframes/SKILL.md",
+      "skillFolderHash": "77fd1f995f47e9cb9ae2eafae10aeedd78044454",
+      "pluginName": "core-skills",
+      "installedAt": "2026-08-07T09:16:02.014Z",
+      "updatedAt": "2026-08-07T09:16:02.014Z"
+    },
+    "hyperframes-creative": {
+      "source": "heygen-com/hyperframes",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/heygen-com/hyperframes.git",
+      "skillPath": "skills/hyperframes-creative/SKILL.md",
+      "skillFolderHash": "fdd1567286e98928f85ccc19c64350bc52c1df86",
+      "pluginName": "core-skills",
+      "installedAt": "2026-08-07T09:16:02.027Z",
+      "updatedAt": "2026-08-07T09:16:02.027Z"
+    },
+    "media-use": {
+      "source": "heygen-com/hyperframes",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/heygen-com/hyperframes.git",
+      "skillPath": "skills/media-use/SKILL.md",
+      "skillFolderHash": "997b71ca55bb7c7e7a1279044b56b92a14beb393",
+      "pluginName": "core-skills",
+      "installedAt": "2026-08-07T09:16:02.028Z",
+      "updatedAt": "2026-08-07T09:16:02.028Z"
+    },
+    "music-to-video": {
+      "source": "heygen-com/hyperframes",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/heygen-com/hyperframes.git",
+      "skillPath": "skills/music-to-video/SKILL.md",
+      "skillFolderHash": "83136f511cb2d19f259c44e44a77caf856a77dc1",
+      "installedAt": "2026-08-07T09:16:02.030Z",
+      "updatedAt": "2026-08-07T09:16:02.030Z"
+    },
+    "brandkit": {
+      "source": "Leonxlnx/taste-skill",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Leonxlnx/taste-skill.git",
+      "skillPath": "skills/brandkit/SKILL.md",
+      "skillFolderHash": "d278ff748cafab01e4ae5dd7758fc0b53258621c",
+      "installedAt": "2026-09-01T13:18:21.380Z",
+      "updatedAt": "2026-09-01T13:18:21.380Z"
+    },
+    "design-taste-frontend": {
+      "source": "Leonxlnx/taste-skill",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Leonxlnx/taste-skill.git",
+      "skillPath": "skills/taste-skill/SKILL.md",
+      "skillFolderHash": "a6d128e53b4ec0238baee751dde33bf707adb5ec",
+      "installedAt": "2026-09-01T13:18:21.382Z",
+      "updatedAt": "2026-09-01T13:18:21.382Z"
+    },
+    "design-taste-frontend-v1": {
+      "source": "Leonxlnx/taste-skill",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Leonxlnx/taste-skill.git",
+      "skillPath": "skills/taste-skill-v1/SKILL.md",
+      "skillFolderHash": "3642ecef471a6ee4d9d485feea6df8ba92616b78",
+      "installedAt": "2026-09-01T13:18:21.383Z",
+      "updatedAt": "2026-09-01T13:18:21.383Z"
+    },
+    "full-output-enforcement": {
+      "source": "Leonxlnx/taste-skill",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Leonxlnx/taste-skill.git",
+      "skillPath": "skills/output-skill/SKILL.md",
+      "skillFolderHash": "3dd6ad49b667d15182acddc9d3e4f7763ae33c9c",
+      "installedAt": "2026-09-01T13:18:21.383Z",
+      "updatedAt": "2026-09-01T13:18:21.383Z"
+    },
+    "gpt-taste": {
+      "source": "Leonxlnx/taste-skill",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Leonxlnx/taste-skill.git",
+      "skillPath": "skills/gpt-tasteskill/SKILL.md",
+      "skillFolderHash": "c87d529ad945cd35985b19475bf53f41682d4f69",
+      "installedAt": "2026-09-01T13:18:21.384Z",
+      "updatedAt": "2026-09-01T13:18:21.384Z"
+    },
+    "high-end-visual-design": {
+      "source": "Leonxlnx/taste-skill",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Leonxlnx/taste-skill.git",
+      "skillPath": "skills/soft-skill/SKILL.md",
+      "skillFolderHash": "1b5943432ddd1b980206968c529a323cc992dbec",
+      "installedAt": "2026-09-01T13:18:21.384Z",
+      "updatedAt": "2026-09-01T13:18:21.384Z"
+    },
+    "image-to-code": {
+      "source": "Leonxlnx/taste-skill",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Leonxlnx/taste-skill.git",
+      "skillPath": "skills/image-to-code-skill/SKILL.md",
+      "skillFolderHash": "701b3cb89c061fcf98a98f639e0b0b5c0b492479",
+      "installedAt": "2026-09-01T13:18:21.385Z",
+      "updatedAt": "2026-09-01T13:18:21.385Z"
+    },
+    "imagegen-frontend-mobile": {
+      "source": "Leonxlnx/taste-skill",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Leonxlnx/taste-skill.git",
+      "skillPath": "skills/imagegen-frontend-mobile/SKILL.md",
+      "skillFolderHash": "9901fcde67e9506a706912107825fdfb72e01f30",
+      "installedAt": "2026-09-01T13:18:21.385Z",
+      "updatedAt": "2026-09-01T13:18:21.385Z"
+    },
+    "imagegen-frontend-web": {
+      "source": "Leonxlnx/taste-skill",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Leonxlnx/taste-skill.git",
+      "skillPath": "skills/imagegen-frontend-web/SKILL.md",
+      "skillFolderHash": "3b5117d349200e33f9c3399344681620079dcc18",
+      "installedAt": "2026-09-01T13:18:21.386Z",
+      "updatedAt": "2026-09-01T13:18:21.386Z"
+    },
+    "industrial-brutalist-ui": {
+      "source": "Leonxlnx/taste-skill",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Leonxlnx/taste-skill.git",
+      "skillPath": "skills/brutalist-skill/SKILL.md",
+      "skillFolderHash": "f812ede7e5c34cf680f629911e9f9ac05e416cf4",
+      "installedAt": "2026-09-01T13:18:21.387Z",
+      "updatedAt": "2026-09-01T13:18:21.387Z"
+    },
+    "minimalist-ui": {
+      "source": "Leonxlnx/taste-skill",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Leonxlnx/taste-skill.git",
+      "skillPath": "skills/minimalist-skill/SKILL.md",
+      "skillFolderHash": "5509c012862cda27e2ed7efae89ed940ecc53add",
+      "installedAt": "2026-09-01T13:18:21.387Z",
+      "updatedAt": "2026-09-01T13:18:21.387Z"
+    },
+    "redesign-existing-projects": {
+      "source": "Leonxlnx/taste-skill",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Leonxlnx/taste-skill.git",
+      "skillPath": "skills/redesign-skill/SKILL.md",
+      "skillFolderHash": "d9cffe56d26d4af7687299e391a7be1cfaf46c1b",
+      "installedAt": "2026-09-01T13:18:21.388Z",
+      "updatedAt": "2026-09-01T13:18:21.388Z"
+    },
+    "stitch-design-taste": {
+      "source": "Leonxlnx/taste-skill",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Leonxlnx/taste-skill.git",
+      "skillPath": "skills/stitch-skill/SKILL.md",
+      "skillFolderHash": "de2038cf286b31f33b397c1308455dbc17ef26f3",
+      "installedAt": "2026-09-01T13:18:21.388Z",
+      "updatedAt": "2026-09-01T13:18:21.388Z"
     }
   },
   "dismissed": {
