@@ -19,6 +19,9 @@ If a step is part of the task and you have the means, such as a token in `.env`/
 ## "The previous session"
 When the owner refers to an earlier session, find it before asking: search `~/.claude/projects/*/*.jsonl` (`session-search` skill) and `~/.agent/sessions/*/{STATE,NEXT}.md`.
 
+## New skills go in `~/.agents`
+Create every new skill in `~/.agents/skills/<name>/SKILL.md` (repo `westsoever/agents`), never in a repo's `.claude/skills/` and never directly in `~/.claude/skills/`. This holds for `/skillfactory`, `skill-creator` and any other skill writer, whatever its default target. Then run `~/.agents/install.sh`, which links every skill into `~/.claude/skills/`, and commit and push `~/.agents` (explicit paths, fetch first). Exceptions: skills that a tool installs and manages itself (`soii install`, Claude plugins) stay where the tool puts them, and a team skill goes to `technobbq/agent-skills` only when the owner asks for a team skill.
+
 ## Compact instructions
 When compacting, carry these forward in the summary, verbatim where possible (retro Tier 1, see `~/.claude/skills/retro/SKILL.md`):
 - Decisions made this session and the reason for each (what was chosen, what was rejected).
