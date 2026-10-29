@@ -8,6 +8,10 @@ Other sessions and machines often have work in flight on the same repo.
 - Stage with explicit paths, never `git add -A`. Uncommitted files that aren't yours belong to another session, so leave them alone.
 - On a conflict, keep both sides' intent. When it isn't obvious, stop and give a recommendation.
 - After the merge, confirm nothing from `origin/main` was dropped (`git log HEAD..origin/main` is empty) and say what went in.
+- When briefing a subagent to merge or push, paste the repo's push/release-gate section word for word (not "read AGENTS.md"), and have it quote the section back before pushing to main. Some repos have no gate but deploy to production on every push, so say that too and have it watch the deploy.
+
+## Don't relay stale status as current
+Before passing a blocker or status on to the owner or a subagent, re-fetch it (tracker entry, plus one `gh pr view` for PRs). A session-start snapshot can be days old: a 5-day-old "PRs blocked" note was relayed as current and the PRs had already merged.
 
 ## Do it yourself, don't hand steps back
 If a step is part of the task and you have the means, such as a token in `.env`/`.env.local`, a runner script, or a migration to apply, run it instead of asking the owner to. Repo rules on what needs approval still apply.
