@@ -18,3 +18,12 @@ If a step is part of the task and you have the means, such as a token in `.env`/
 
 ## "The previous session"
 When the owner refers to an earlier session, find it before asking: search `~/.claude/projects/*/*.jsonl` (`session-search` skill) and `~/.agent/sessions/*/{STATE,NEXT}.md`.
+
+## Compact instructions
+When compacting, carry these forward in the summary, verbatim where possible (retro Tier 1, see `~/.claude/skills/retro/SKILL.md`):
+- Decisions made this session and the reason for each (what was chosen, what was rejected).
+- New synthesis or answers not yet filed anywhere durable (say where they should be filed).
+- Files created or edited, and anything left half-written or uncommitted.
+- Open questions and deferred items.
+- People, projects, or interactions mentioned that are not yet in memory or a log.
+- Shared merge points touched (index files, MEMORY.md, STATE.md/NEXT.md, backlogs).
