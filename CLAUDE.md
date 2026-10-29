@@ -27,3 +27,6 @@ When compacting, carry these forward in the summary, verbatim where possible (re
 - Open questions and deferred items.
 - People, projects, or interactions mentioned that are not yet in memory or a log.
 - Shared merge points touched (index files, MEMORY.md, STATE.md/NEXT.md, backlogs).
+
+## Execute autonomously when told to
+When the owner says to proceed without waiting for input (e.g. "execute end-to-end on your own", "I'll be asleep, decide for me"), that permission covers the whole task, including re-checking the repo state and adjusting the plan if things changed since it was written. Don't stop to ask or re-confirm mid-execution. If a question comes up that needs a decision, make the call yourself, log it, and keep going — don't stall.
