@@ -34,7 +34,7 @@ Settings (env, in the shell or in `settings.json` `env`):
 - `BIG_READ_GUARD=off`: turn the guard off.
 
 ## Install
-Run `~/.agents/install.sh` (links the skill), then `skills/bulk-read/install-hook.sh` (links `~/.claude/agents/bulk-reader.md` and registers the hook in `~/.claude/settings.json`, with a backup). Both are idempotent. The kaching guard blocks agents from editing `settings.json`, so the owner runs the hook script (`! ~/.agents/skills/bulk-read/install-hook.sh`).
+Run `~/.agents/install.sh` (links the skill), then `skills/bulk-read/install-hook.sh` (links `~/.claude/agents/bulk-reader.md` and registers the hook in `~/.claude/settings.json`, with a backup). Both are idempotent. The agent-terminal guard (`~/.claude/agent-terminal/bin/guard.sh`) blocks agents from editing `settings.json`, so the owner runs the hook script (`! ~/.agents/skills/bulk-read/install-hook.sh`).
 
 ## Measured (2026-11-02)
 One question about a 1,147-line Python file, Sonnet main thread: $0.194 with the guard vs $0.244 without (20% cheaper), and about 15k fewer tokens in the main context. Savings grow in long sessions, because a directly read file is carried in context on every later turn.
