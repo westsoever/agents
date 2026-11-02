@@ -19,6 +19,9 @@ If a step is part of the task and you have the means, such as a token in `.env`/
 ## "The previous session"
 When the owner refers to an earlier session, find it before asking: search `~/.claude/projects/*/*.jsonl` (`session-search` skill) and `~/.agent/sessions/*/{STATE,NEXT}.md`.
 
+## Supervising other sessions
+When the owner hands you another session or agent to keep going, supervise, follow up on or report back on ("keep tabs on @X", "report back when it's done", "do it through @Helper and decide for it", "did the cron run push anything?"), invoke the `supervise` skill first. For "what are all my sessions doing", use `master`.
+
 ## New skills go in `~/.agents`
 Create every new skill in `~/.agents/skills/<name>/SKILL.md` (repo `westsoever/agents`), never in a repo's `.claude/skills/` and never directly in `~/.claude/skills/`. This holds for `/skillfactory`, `skill-creator` and any other skill writer, whatever its default target. Then run `~/.agents/install.sh`, which links every skill into `~/.claude/skills/`, and commit and push `~/.agents` (explicit paths, fetch first). Exceptions: skills that a tool installs and manages itself (`soii install`, Claude plugins) stay where the tool puts them, and a team skill goes to `technobbq/agent-skills` only when the owner asks for a team skill.
 

@@ -7,6 +7,8 @@ description: Act as the MASTER session over every local Claude Code session. Che
 
 You oversee all local Claude sessions. You don't do their work. You find out what each one is doing, keep a ledger of its goal and progress, surface decisions, and send the owner's answers to the session that owns the work.
 
+When the owner hands you specific sessions to follow through to the end ("supervise @X", "keep tabs on it and report back when it's done"), use `/supervise` for those sessions.
+
 Arguments: none runs a full check-in. `checkin` runs a quiet scheduled check-in (see step 6). `stop` removes the recurring check-in.
 
 ## 1. Find the sessions
