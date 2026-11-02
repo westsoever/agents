@@ -1,6 +1,6 @@
 ---
 name: cos-unbox
-description: "The COS vault's own /unbox (run it in ~/cos; soii updates never overwrite it, unlike soii's template /unbox). Unboxes the Inbox: takes everything out and puts it where it belongs in the vault. Reads every note in 00-Inbox/ (clippings and any agent-queue/ above all), fetches linked pages the way the Obsidian Web Clipper does, files each item as a typed note (article, video, research) in 04-Resources/Library/, files 'check this out' items, job posts and tasks as task notes in 03-Areas/Tasks/backlog/ (the vault's task system, see AGENTS.md), sweeps finished tasks into 03-Areas/Tasks/completed/, logs count captures such as '20 pushups' to their count goal (with the capture's day and time), archives the handled queue notes, and, only if you use Todoist with an agent that queues tasks into your Inbox, marks those tasks complete once filed, because the vault owns the task list (Todoist is optional: without it that step never runs). Shows the plan before it writes and never pushes. Run it whenever, not just weekly. Use when the owner says 'clean up the inbox', 'empty the inbox', 'process the agent queue', 'file my clippings', 'unbox the inbox', or types /unbox or /cos-unbox."
+description: "The COS vault's own /unbox (run it in ~/cos; soii updates never overwrite it, unlike soii's template /unbox). Unboxes the Inbox: takes everything out and puts it where it belongs in the vault. Reads every note in 00-Inbox/ (clippings and any agent-queue/ above all), fetches linked pages the way the Obsidian Web Clipper does, files each item as a typed note (article, video, research) in 04-Resources/Library/, sends 'check this out' items, job posts and tasks to the flowbuddy Inbox through its ingest endpoint (tasks live in flowbuddy since 2026-11-01, see AGENTS.md), logs count captures such as '20 pushups' to their count goal (with the capture's day and time), archives the handled queue notes, and, only if you use Todoist with an agent that queues tasks into your Inbox, marks those tasks complete once filed, because flowbuddy owns the task list (Todoist is optional: without it that step never runs). Shows the plan before it writes and never pushes. Run it whenever, not just weekly. Use when the owner says 'clean up the inbox', 'empty the inbox', 'process the agent queue', 'file my clippings', 'unbox the inbox', or types /unbox or /cos-unbox."
 ---
 
 # Unbox
@@ -8,7 +8,7 @@ description: "The COS vault's own /unbox (run it in ~/cos; soii updates never ov
 > Vault-owned copy of soii's `unbox`, kept in `~/.agents/skills/cos-unbox/` so `soii update` can't reset it (it did twice on 2026-10-30). Run it from the vault root: the scripts it calls (`09-agents/ig-clip`, `09-agents/reel-transcribe`, `09-agents/goal-log`) use vault-relative paths.
 
 
-Empties `00-Inbox/` properly: every item ends up typed and filed, filed as a task, or left with a stated reason. Unlike `/soii-health` (read-only, reports only items older than 7 days), this one acts on **everything in the Inbox right now**.
+Empties `00-Inbox/` properly: every item ends up typed and filed, sent to flowbuddy as a task, or left with a stated reason. Unlike `/soii-health` (read-only, reports only items older than 7 days), this one acts on **everything in the Inbox right now**.
 
 Hard rules:
 - These are the owner's private notes. Fetch only the URLs the owner saved (for an Instagram link, its public embed page and slide images, and for a reel its audio, step 3). **Never put any other note's contents into a fetch or a search.** Never log in anywhere.
@@ -20,7 +20,7 @@ Hard rules:
 
 ## 0. Where things are
 
-The Inbox is `00-Inbox/` in soii's template; if the vault has no such folder, look for the one that holds unfiled notes, and ask once if unsure. Filing goes to `04-Resources/Library/` and, for tasks, `03-Areas/Tasks/backlog/` (the vault's task system: read `AGENTS.md` first); if the vault keeps those elsewhere, use its folders, and never invent a new top-level one. Folders below those (`Articles/`, `08-Archive/agent-queue/`) are created when needed.
+The Inbox is `00-Inbox/` in soii's template; if the vault has no such folder, look for the one that holds unfiled notes, and ask once if unsure. Filing goes to `04-Resources/Library/`; tasks go to flowbuddy (section 4), never into `03-Areas/Tasks/` (read-only history since 2026-11-01). If the vault keeps the Library elsewhere, use its folders, and never invent a new top-level one. Folders below those (`Articles/`, `08-Archive/agent-queue/`) are created when needed.
 
 ## 1. Sync, then survey
 
@@ -39,17 +39,17 @@ If `git pull --rebase` fails or the tree has uncommitted edits to Inbox files, s
 |---|---|---|
 | Clipping (already has a body) | `type: article` (or `video` / `research` by the rules below). **Don't re-fetch.** Move the file itself. | `04-Resources/Library/<folder>` |
 | Link (any task whose point is the page: read, watch, paper, repo) | fetched, typed note | `04-Resources/Library/<folder>` |
-| Job post | task note, `kind: job` | `03-Areas/Tasks/backlog/` |
-| "Check this out", "try tomorrow", "weekend project", or a page that can't be fetched | task note, `kind: check-out` | `03-Areas/Tasks/backlog/` |
-| Task asking for work, not filing ("write the perfect tone for emails", "find this journal entry") | task note, `kind: task`, link kept as reference | `03-Areas/Tasks/backlog/` |
-| Task asking for a vault note ("put these as a goal in soii") | that note (`type: goal` etc., per `.soii/soii/docs/frontmatter.md`) if the task gives enough; else a task note (`kind: task`) | its PARA folder |
+| Job post | flowbuddy task (job) | flowbuddy Inbox (section 4) |
+| "Check this out", "try tomorrow", "weekend project", or a page that can't be fetched | flowbuddy task (check-out) | flowbuddy Inbox (section 4) |
+| Task asking for work, not filing ("write the perfect tone for emails", "find this journal entry") | flowbuddy task, link kept | flowbuddy Inbox (section 4) |
+| Task asking for a vault note ("put these as a goal in soii") | that note (`type: goal` etc., per `.soii/soii/docs/frontmatter.md`) if the task gives enough; else a flowbuddy task | its PARA folder, or the flowbuddy Inbox |
 | Goal count: a note the `scan` above returned with a `goal` ("20 pushups", "did 25 push-ups") | a line in that goal's `## Log` with the capture's day and time, the goal's progress redrawn. **Don't write these by hand**: step 6 runs the script. | the goal note; the capture to `08-Archive/goal-log/` |
 | A note `scan` returned as `unclear` (it mentions a count goal but isn't a plain count) | leave in the Inbox, give the script's reason | stays |
 | Anything else (loose captures, ideas) | leave in the Inbox, list it with a one-line suggestion | stays |
 
 Library folders (create when needed): `Articles/` (articles, blog posts, repos and tools with `category: tool`), `Videos/` (YouTube, Vimeo, Instagram reels), `Research/` (arXiv, DOI, PDF, journal pages). Choose by the URL and the page, not the task wording.
 
-An Instagram link (`instagram.com/p/`, `/reel/`, `/tv/`) is never treated as unfetchable: step 3's Instagram rule reads the post from its slides, so classify it by the task like any other link. A task that asks for work ("take out the learnings", "check them out") is still a task note, now with the post in its body and no `blocked:`.
+An Instagram link (`instagram.com/p/`, `/reel/`, `/tv/`) is never treated as unfetchable: step 3's Instagram rule reads the post from its slides, so classify it by the task like any other link. A task that asks for work ("take out the learnings", "check them out") is still a flowbuddy task, now with the post in its text.
 
 ## 3. Fetch like the Obsidian Clipper
 
@@ -133,7 +133,7 @@ It prints JSON: `username`, `caption` and `slides` (`n`, `file`, `is_video`), or
    ```
 
    It downloads the audio with yt-dlp (no login, no cookies; never add `--cookies` or similar when it fails) and runs Whisper locally. It prints JSON: `language` and `sentences`, or `error` with exit code 1. The first run downloads the model (about 1.5 GB), then a reel takes seconds. Put `sentences` under `### Transcript`, one per line, exactly as printed: no fixing, summarising or translating. With an empty `sentences` write `[no speech]`; with an `error` write `[audio not transcribed: <first sentence of the error>]`. A transcript error never makes the post unreadable: the slide and caption still go in. Carousel posts with video slides keep `[video: audio not transcribed]`.
-3. Put the post in the note body (a Library note, or below the task text in a task note) in this layout:
+3. Put the post in the note body (a Library note, or below the task text in a flowbuddy task) in this layout:
 
    ```markdown
    ## Instagram post
@@ -158,66 +158,44 @@ Only if `ig-clip.ts` prints an `error` (a private, deleted or age-gated post) do
 
 ### When a page can't be read
 
-If a fetch fails, is login-walled or paywalled: don't retry, don't try workarounds. Keep the URL, write the note with a body line `Not clipped: <reason>`, and for an unreadable link file it as a task note (`kind: check-out`) rather than the Library. When the task can't be done without the page, also set `blocked: "<the same reason>"` and `lane: hold` (only the owner can open it). When the task doesn't need the page itself (for example testing a browser plugin on it), set `lane: hold` but no `blocked:`.
+If a fetch fails, is login-walled or paywalled: don't retry, don't try workarounds. Keep the URL, write the note with a body line `Not clipped: <reason>`, and for an unreadable link send it to flowbuddy as a check-out task (section 4) rather than the Library, with the `Not clipped: <reason>` line in its text.
 
-Leave out the `Map:` line, here and in the task notes, when the vault has no "Areas and Resources" note (soii's template has no maps folder).
+Leave out the `Map:` line when the vault has no "Areas and Resources" note (soii's template has no maps folder).
 
-## 4. Task notes
+## 4. Tasks go to flowbuddy
 
-Every captured task, job post and check-out is a task note in `03-Areas/Tasks/backlog/` (the rules are in `AGENTS.md`; the template is `05-Knowledge/Templates/Task.md`). The file is `<id>-<kebab-title>.md`. The id is the highest id across `03-Areas/Tasks/backlog/` and `03-Areas/Tasks/completed/` plus 1 (four digits, never reused; with several new notes in one run, count up). Find the highest with:
+Every captured task, job post and check-out becomes a task in Lennert's flowbuddy Inbox, sent through flowbuddy's `ingest` endpoint after the Go (step 6). Never write a task note: `03-Areas/Tasks/` is read-only history.
+
+For each task, `Write` the request body to `/tmp/unbox-task-<n>.json`:
+
+```json
+{"text": "<Title: company and role for a job, else what it is>\n<the original task text, as written; for a check-out or job, a first line `Check-out:` or `Job:`; any `Not clipped: <reason>` line; an Instagram post's slides>", "url": "<the link, if any>", "source": "vault_inbox"}
+```
+
+The first line of `text` becomes the title (200 characters at most); the rest becomes the description. Leave `url` out when there is no link. Then send it (the token stays in its file; never print or paste it):
 
 ```bash
-ls 03-Areas/Tasks/backlog 03-Areas/Tasks/completed | grep -oE '^[0-9]{4}' | sort | tail -1
+curl -sS --fail-with-body -X POST "$(jq -r .url ~/.config/flowbuddy/clerk.json)" -H "Authorization: Bearer $(jq -r .token ~/.config/flowbuddy/clerk.json)" -H 'Content-Type: application/json' --data-binary @/tmp/unbox-task-<n>.json
 ```
 
-```markdown
----
-id: "<id>"
-title: "<Title>"
-status: todo
-owner: human:lennert
-priority: 3
-created: <today>
-updated: <today>
-due: <a deadline the task text states, else empty>
-depends_on: []
-tags: []
-kind: job | check-out | task | idea
-lane:
-blocked:
-url: <url>
-source: todoist
-todoist_task_id: "<id>"
----
-# <Title: company and role for a job, else what it is>
-Map: [[Backlog]]
+It answers `{"number": 1042}`: that task's flowbuddy number. If it fails (flowbuddy not running, no token file), stop sending, leave the remaining task items in the Inbox, and say so in the report. Delete the `/tmp/unbox-task-*.json` files when done.
 
-<The original task text, as written.>
-```
-
-- `status` is `todo` for every new note. The vocabulary is `todo`, `in_progress`, `blocked`, `review`, `done` (a dropped task is `done` with `dropped` in `tags`); the owner or an agent moves it on, not `/unbox`.
-- `owner: human:lennert` keeps agents off it. Leave `owner` empty only when the plan sets `lane: research` or `lane: build`, which hands the task to a Paperclip agent.
-- `priority` is 3, or 5 (someday) for a job post or a check-out with no lane.
-- `lane:` stays empty (untriaged) unless the plan says otherwise; `hold` means it needs the owner. `blocked:` stays empty unless the page couldn't be read and the task needs it (step 3); then set `status: blocked` too.
-- `issue:`, `pr:`, `result:` and `done:` are added later by Paperclip or the owner, not here.
-- `due:` is not Todoist's date: Todoist stamps the capture day, which is not a deadline. Leave it empty unless the task text names one.
-- The `# Title` goes on the line right after the closing `---`, then the `Map:` line (this vault's layout, see `CLAUDE.md`).
+`due` and priority are set in flowbuddy, not here. Todoist's date is the capture day, not a deadline: if the task text names a real deadline, put it in the text.
 
 ## 5. Show the plan, ask
 
-One table: *queue/clipping → destination → type/kind (and `blocked:` reason, if any) → Todoist action*. Goal counts get one row each: capture → goal → the line it adds (`2026-10-21 07:32 — 20 push-ups`). Say what will be fetched, what can't be, and what stays in the Inbox. Ask with AskUserQuestion: **Go / Change something**. Write nothing before a Go.
+One table: *queue/clipping → destination → type/kind (and `Not clipped:` reason, if any) → Todoist action*. Goal counts get one row each: capture → goal → the line it adds (`2026-10-21 07:32 — 20 push-ups`). Say what will be fetched, what can't be, and what stays in the Inbox. Ask with AskUserQuestion: **Go / Change something**. Write nothing before a Go.
 
 ## 6. Do it
 
 Goal counts first: `bun 09-agents/goal-log/goal-log.ts apply <the capture paths in the plan>`, or `bun 09-agents/goal-log/goal-log.ts render` when `scan` found none. `apply` adds the Log lines, archives the captures and redraws every count goal (so a day without entries reads 0%); its `changed` list is the paths to commit. (How it reads counts and times: `.claude/skills/goal-log/SKILL.md`.)
 
-1. Create the notes and folders. Move clippings with `git mv`, then add `type:` and the Map line.
-2. If `07-Maps/Areas and Resources.md` exists, add each new Library note to it under a `Library` heading (create the heading if missing; follow the link style already in the file). Task notes need no map entry: `07-Maps/Backlog.md` lists them from their frontmatter. Otherwise skip this step.
-3. Archive each handled queue note: `git mv` it to `08-Archive/agent-queue/`, set `status: done`, add `filed_to: "[[<new note>]]"`.
-4. Sweep: every note in `03-Areas/Tasks/backlog/` with `status: done` (Paperclip's merged PRs set it in place) moves with `git mv` to `03-Areas/Tasks/completed/`, file name unchanged so links hold. List them in the plan (step 5) and count them in the report.
-5. Commit only the paths you touched: `git add <paths> && git commit -m "unbox: file N inbox items"`. Don't push.
-6. Skip this step when no handled note has a `todoist_task_id`. Only after the commit, mark Todoist tasks complete: load `mcp__claude_ai_Todoist__complete-tasks` through ToolSearch and pass the `todoist_task_id`s. **Complete every task that is now filed**, in the Library, as a requested note, or as a task note. Todoist is only the phone capture; the vault owns the task list from here, and the task note's `status:` tracks whether the work is done. Leave open only the tasks whose item stays in the Inbox. If Todoist can't be reached, print the ids instead.
+1. Create the notes and folders. Move clippings with `git mv`, then add `type:` and the Map line. Send each task to flowbuddy (section 4), then `git mv` its Inbox note to `08-Archive/Inbox/` (queue notes: step 3).
+2. If `07-Maps/Areas and Resources.md` exists, add each new Library note to it under a `Library` heading (create the heading if missing; follow the link style already in the file). Otherwise skip this step.
+3. Archive each handled queue note: `git mv` it to `08-Archive/agent-queue/`, set `status: done`, add `filed_to: "[[<new note>]]"` (for a task: `filed_to: "flowbuddy #<number>"`).
+4. Commit only the paths you touched: `git add <paths> && git commit -m "unbox: file N inbox items"`. Don't push.
+5. Skip this step when no handled note has a `todoist_task_id`. Only after the commit, mark Todoist tasks complete: load `mcp__claude_ai_Todoist__complete-tasks` through ToolSearch and pass the `todoist_task_id`s. **Complete every task that is now filed**, in the Library, as a requested note, or in flowbuddy. Todoist is only the phone capture; flowbuddy owns the task list from here. Leave open only the tasks whose item stays in the Inbox. If Todoist can't be reached, print the ids instead.
 
 ## 7. Report
 
-Five lines at most: filed (n, by folder), goal counts logged (n, with each goal's total today), filed as tasks (n), swept to completed (n), couldn't clip (n, why), Todoist completed (n), left in the Inbox (n, why). Then: `git push` when you're ready.
+Five lines at most: filed (n, by folder), goal counts logged (n, with each goal's total today), sent to flowbuddy (n, with their numbers), couldn't clip (n, why), Todoist completed (n), left in the Inbox (n, why). Then: `git push` when you're ready.
