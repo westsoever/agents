@@ -1,0 +1,61 @@
+#!/bin/bash
+# PreToolUse hook (Read|Bash): stop the main thread from pulling whole large
+# files into context and point it at the bulk-reader subagent (Haiku) instead.
+# Subagent calls carry agent_id and always pass, so bulk-reader and builders
+# that edit keep full access. Targeted reads (offset/limit) always pass.
+#
+# Tune: BIG_READ_MIN_LINES (default 400). Turn off: BIG_READ_GUARD=off.
+
+[ "${BIG_READ_GUARD:-on}" = "off" ] && exit 0
+MIN="${BIG_READ_MIN_LINES:-400}"
+case "$MIN" in ''|*[!0-9]*) MIN=400 ;; esac
+
+input=$(cat)
+command -v jq >/dev/null || exit 0
+[ -n "$(jq -r '.agent_id // empty' <<<"$input")" ] && exit 0
+
+tool=$(jq -r '.tool_name // empty' <<<"$input")
+cwd=$(jq -r '.cwd // empty' <<<"$input")
+
+is_text() {
+  case "$(tr '[:upper:]' '[:lower:]' <<<"$1")" in
+    *.png|*.jpg|*.jpeg|*.gif|*.webp|*.heic|*.bmp|*.ico|*.pdf|*.ipynb) return 1 ;;
+  esac
+  [ -f "$1" ] && grep -Iq . "$1" 2>/dev/null
+}
+
+lines_of() { wc -l < "$1" 2>/dev/null | tr -d ' '; }
+
+deny() {
+  jq -n --arg r "$1" '{hookSpecificOutput:{hookEventName:"PreToolUse",permissionDecision:"deny",permissionDecisionReason:$r}}'
+  exit 0
+}
+
+advice="To understand it, spawn the bulk-reader subagent (Agent tool, subagent_type \"bulk-reader\") with the file path(s) and a specific question; it reads on Haiku and returns a summary with file:line refs. To edit, Read just the section you need with offset/limit. If you truly need the whole file in context, Read it with an explicit limit."
+
+case "$tool" in
+  Read)
+    f=$(jq -r '.tool_input.file_path // empty' <<<"$input")
+    [ -n "$(jq -r '.tool_input.offset // .tool_input.limit // empty' <<<"$input")" ] && exit 0
+    is_text "$f" || exit 0
+    n=$(lines_of "$f")
+    [ "${n:-0}" -gt "$MIN" ] && deny "big-read-guard: $f is $n lines (threshold $MIN). $advice"
+    ;;
+  Bash)
+    cmd=$(jq -r '.tool_input.command // empty' <<<"$input")
+    # Only plain whole-file dumps: cat/bat/less/more with no pipe, redirect or chaining.
+    case "$cmd" in *'|'*|*'>'*|*'<'*|*';'*|*'&'*|*'$('*|*'`'*) exit 0 ;; esac
+    read -ra words <<<"$cmd"
+    case "${words[0]}" in cat|bat|less|more) ;; *) exit 0 ;; esac
+    [ -n "$cwd" ] && cd "$cwd" 2>/dev/null
+    total=0
+    for w in "${words[@]:1}"; do
+      case "$w" in -*) continue ;; esac
+      w="${w/#\~/$HOME}"; w="${w%\"}"; w="${w#\"}"; w="${w%\'}"; w="${w#\'}"
+      is_text "$w" || continue
+      total=$((total + $(lines_of "$w")))
+    done
+    [ "$total" -gt "$MIN" ] && deny "big-read-guard: that dumps $total lines (threshold $MIN). $advice Or narrow it in Bash (grep, sed -n 'a,bp')."
+    ;;
+esac
+exit 0
