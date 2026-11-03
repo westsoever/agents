@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My skills</title>
+<style>
+:root {
+  color-scheme: light dark;
+  --bg: #fafaf9; --fg: #1c1917; --muted: #6b645d; --card: #ffffff; --line: #e7e5e4;
+  --accent: #2f5d50; --accent-soft: #e6efec; --mark: #fde68a; --ring: #2f5d50;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #141413; --fg: #ecebe8; --muted: #a09a92; --card: #1c1b1a; --line: #2e2c2a;
+    --accent: #7fc4ae; --accent-soft: #20302b; --mark: #5c4b0e; --ring: #7fc4ae;
+  }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; }
+:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+mark { background: var(--mark); color: inherit; border-radius: 2px; padding: 0 1px; }
+button { font: inherit; color: inherit; }
+
+header { position: sticky; top: 0; z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); }
+.bar { max-width: 1200px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; gap: 16px; }
+h1 { font-size: 18px; margin: 0; font-weight: 650; }
+.meta { color: var(--muted); font-size: 13px; flex: 1; min-width: 0; }
+.search-btn { display: flex; align-items: center; gap: 10px; width: 280px; max-width: 45vw; padding: 8px 12px; background: var(--card); border: 1px solid var(--line); border-radius: 8px; color: var(--muted); cursor: pointer; text-align: left; }
+.search-btn:hover { border-color: var(--muted); }
+.search-btn span:first-child { flex: 1; }
+kbd { font: 12px var(--mono); padding: 1px 6px; border: 1px solid var(--line); border-radius: 4px; background: var(--bg); color: var(--muted); }
+
+main { max-width: 1200px; margin: 0 auto; padding: 24px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+.card { display: flex; flex-direction: column; gap: 8px; text-align: left; padding: 14px 16px; background: var(--card); border: 1px solid var(--line); border-radius: 10px; cursor: pointer; min-height: 150px; }
+.card:hover { border-color: var(--accent); }
+.card .top { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.name { font: 600 14px var(--mono); overflow-wrap: anywhere; }
+.badge { font-size: 11px; padding: 1px 7px; border-radius: 99px; background: var(--accent-soft); color: var(--accent); white-space: nowrap; }
+.card .desc { color: var(--muted); font-size: 13.5px; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; flex: 1; }
+.card .foot { font-size: 12px; color: var(--muted); }
+
+dialog { border: 1px solid var(--line); background: var(--card); color: var(--fg); padding: 0; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,.35); }
+dialog::backdrop { background: rgba(0,0,0,.45); }
+
+#palette { width: min(680px, 94vw); margin: 10vh auto auto; max-height: 76vh; }
+#palette[open] { display: flex; flex-direction: column; }
+#q { width: 100%; border: 0; border-bottom: 1px solid var(--line); background: transparent; color: var(--fg); font: 17px inherit; padding: 16px 18px; outline: none; }
+#q:focus-visible { outline: none; box-shadow: inset 0 -2px 0 var(--ring); }
+#results { list-style: none; margin: 0; padding: 6px; overflow-y: auto; flex: 1; }
+#results li { padding: 9px 12px; border-radius: 8px; cursor: pointer; }
+#results li[aria-selected="true"] { background: var(--accent-soft); }
+#results .r-top { display: flex; gap: 8px; align-items: baseline; }
+#results .r-desc, #results .r-snip { font-size: 13px; color: var(--muted); display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+#results .r-snip { font-family: var(--mono); font-size: 12px; opacity: .9; }
+.empty { padding: 28px 18px; color: var(--muted); text-align: center; }
+.hint { display: flex; gap: 16px; padding: 8px 16px; border-top: 1px solid var(--line); font-size: 12px; color: var(--muted); }
+
+#sheet { width: min(860px, 96vw); height: min(88vh, 900px); margin: auto; }
+#sheet[open] { display: flex; flex-direction: column; }
+.sheet-head { padding: 16px 20px; border-bottom: 1px solid var(--line); display: flex; flex-direction: column; gap: 10px; }
+.sheet-title { display: flex; align-items: center; gap: 10px; }
+.sheet-title .name { font-size: 18px; flex: 1; }
+.sheet-desc { color: var(--muted); font-size: 14px; margin: 0; }
+.actions { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.btn { padding: 5px 12px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); cursor: pointer; font-size: 13px; }
+.btn:hover { border-color: var(--accent); }
+.path { font: 12px var(--mono); color: var(--muted); }
+/* Skill view: geometric sans (Futura on Mac, Century Gothic on Windows), identifiers and code stay monospace. */
+#sheet { --geo: Futura, "Avenir Next", Avenir, "Century Gothic", "Trebuchet MS", system-ui, sans-serif; font-family: var(--geo); }
+#sheet .name, #sheet .path, #sheet code, #sheet pre { font-family: var(--mono); }
+.sheet-body { overflow: auto; flex: 1; padding: 20px 28px 32px; }
+.files { margin: 0 0 18px; font-size: 13px; color: var(--muted); line-height: 1.7; }
+.files code { font-size: 12px; }
+.md { font-size: 16px; line-height: 1.65; max-width: 72ch; overflow-wrap: break-word; }
+.md h1, .md h2, .md h3, .md h4, .md h5, .md h6 { line-height: 1.25; margin: 1.5em 0 .5em; font-weight: 600; }
+.md h1 { font-size: 1.55em; } .md h2 { font-size: 1.28em; } .md h3 { font-size: 1.1em; } .md h4, .md h5, .md h6 { font-size: 1em; }
+.md > :first-child { margin-top: 0; }
+.md p, .md ul, .md ol, .md pre, .md blockquote, .md table { margin: 0 0 .9em; }
+.md ul, .md ol { padding-left: 1.5em; }
+.md li { margin: .25em 0; }
+.md li > p { margin: 0 0 .4em; }
+.md li > ul, .md li > ol { margin: .25em 0 .25em; }
+.md code { font-size: .84em; background: var(--accent-soft); padding: .1em .38em; border-radius: 4px; overflow-wrap: break-word; }
+.md pre.code { padding: 12px 14px; background: var(--bg); border: 1px solid var(--line); border-radius: 8px; overflow: auto; font-size: 13px; line-height: 1.5; }
+.md pre.code code { background: none; padding: 0; font-size: inherit; overflow-wrap: normal; }
+.md blockquote { border-left: 3px solid var(--line); padding-left: 14px; color: var(--muted); }
+.md blockquote > :last-child { margin-bottom: 0; }
+.md table { border-collapse: collapse; display: block; overflow-x: auto; font-size: .94em; }
+.md th, .md td { border: 1px solid var(--line); padding: 6px 10px; text-align: left; vertical-align: top; }
+.md th { background: var(--bg); font-weight: 600; }
+.md hr { border: 0; border-top: 1px solid var(--line); margin: 1.6em 0; }
+.md a { color: var(--accent); }
+.md .ref { text-decoration: underline dotted; text-underline-offset: 3px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+@media (max-width: 560px) { .meta { display: none; } .search-btn { max-width: none; width: 100%; } }
+</style>
+</head>
+<body>
+<header>
+  <div class="bar">
+    <h1>My skills</h1>
+    <div class="meta" id="meta"></div>
+    <button class="search-btn" id="open-search" type="button" aria-label="Search skills">
+      <span>Search skills…</span><kbd id="kbd">⌘K</kbd>
+    </button>
+  </div>
+</header>
+<main><div class="grid" id="grid"></div></main>
+
+<dialog id="palette" aria-label="Search skills">
+  <input id="q" type="text" role="combobox" aria-expanded="true" aria-controls="results" aria-autocomplete="list" placeholder="Search names, descriptions and everything inside the skills…" autocomplete="off" spellcheck="false">
+  <ul id="results" role="listbox" aria-label="Matching skills"></ul>
+  <div class="hint"><span>↑↓ move</span><span>↵ open</span><span>esc close</span><span id="count" style="margin-left:auto"></span></div>
+</dialog>
+
+<dialog id="sheet" aria-labelledby="sheet-name">
+  <div class="sheet-head">
+    <div class="sheet-title">
+      <span class="name" id="sheet-name"></span><span id="sheet-badge"></span>
+      <button class="btn" id="sheet-close" type="button">Close</button>
+    </div>
+    <p class="sheet-desc" id="sheet-desc"></p>
+    <div class="actions">
+      <button class="btn" id="copy-cmd" type="button"></button>
+      <button class="btn" id="copy-path" type="button">Copy path</button>
+      <span class="path" id="sheet-path"></span>
+    </div>
+  </div>
+  <div class="sheet-body" id="sheet-body"></div>
+</dialog>
+<div class="sr" id="live" aria-live="polite"></div>
+
+<script type="application/json" id="data">__DATA__</script>
+<script>
+const DATA = JSON.parse(document.getElementById('data').textContent);
+const S = DATA.skills;
+const $ = id => document.getElementById(id);
+const isMac = /Mac|iPhone|iPad/.test(navigator.platform);
+$('kbd').textContent = isMac ? '⌘K' : 'Ctrl K';
+$('meta').textContent = `${DATA.count} skills from ${DATA.source} · built ${DATA.generated}`;
+
+for (const s of S) { s._n = s.name.toLowerCase(); s._d = s.description.toLowerCase(); s._b = s.body.toLowerCase(); s._f = s.files.join(' ').toLowerCase(); }
+
+const esc = t => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+const reEsc = t => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+const tokens = q => q.toLowerCase().split(/\s+/).filter(Boolean);
+
+function hl(text, toks) {
+  if (!toks.length) return esc(text);
+  const re = new RegExp(toks.slice().sort((a, b) => b.length - a.length).map(reEsc).join('|'), 'gi');
+  let out = '', last = 0, m;
+  while ((m = re.exec(text))) {
+    out += esc(text.slice(last, m.index)) + '<mark>' + esc(m[0]) + '</mark>';
+    last = m.index + m[0].length;
+  }
+  return out + esc(text.slice(last));
+}
+
+// ---- small markdown renderer (no dependencies; covers what skills use: headings, lists, tables, code, quotes, links)
+function fmt(t) {
+  return t
+    .replace(/\*\*(?=\S)([\s\S]*?\S)\*\*/g, '<strong>$1</strong>')
+    .replace(/(^|[^\w])__(?=\S)([\s\S]*?\S)__(?!\w)/g, '$1<strong>$2</strong>')
+    .replace(/(^|[^*\w])\*(?=[^\s*])([\s\S]*?[^\s*])\*(?!\*)/g, '$1<em>$2</em>')
+    .replace(/(^|[^\w])_(?=[^\s_])([\s\S]*?[^\s_])_(?!\w)/g, '$1<em>$2</em>')
+    .replace(/~~(?=\S)([\s\S]*?\S)~~/g, '<del>$1</del>');
+}
+function inline(src) {
+  const stash = [];
+  const put = h => { stash.push(h); return '\u0001' + (stash.length - 1) + '\u0002'; };
+  let t = src.replace(/(`+)([\s\S]*?[^`])\1(?!`)/g, (_, _b, c) => put('<code>' + esc(c.trim()) + '</code>'));
+  t = t.replace(/\[([^\]]+)\]\(([^)\s]+)(?:\s+"[^"]*")?\)/g, (_, text, href) => {
+    const inner = fmt(esc(text));
+    return put(/^(https?:\/\/|mailto:)/i.test(href) ? `<a href="${esc(href)}" target="_blank" rel="noopener">${inner}</a>` : `<span class="ref">${inner}</span>`);
+  });
+  t = fmt(esc(t));
+  while (/\u0001\d+\u0002/.test(t)) t = t.replace(/\u0001(\d+)\u0002/g, (_, i) => stash[i]);
+  return t;
+}
+function splitRow(l) {
+  let s = l.trim();
+  if (s[0] === '|') s = s.slice(1);
+  if (s.endsWith('|') && !s.endsWith('\\|')) s = s.slice(0, -1);
+  const cells = []; let cur = '', tick = false;
+  for (let k = 0; k < s.length; k++) {
+    const c = s[k];
+    if (c === '\\' && s[k + 1] === '|') { cur += '|'; k++; continue; }
+    if (c === '`') tick = !tick;
+    if (c === '|' && !tick) { cells.push(cur.trim()); cur = ''; continue; }
+    cur += c;
+  }
+  cells.push(cur.trim());
+  return cells;
+}
+const blank = l => /^\s*$/.test(l);
+const fenceRe = /^\s*(```+|~~~+)/;
+const listRe = /^(\s*)([-*+]|\d+[.)])\s+(.*)$/;
+const hrRe = /^\s{0,3}([-*_])(\s*\1){2,}\s*$/;
+const sepRe = /^\s*\|?\s*:?-{2,}:?\s*(\|\s*:?-{2,}:?\s*)*\|?\s*$/;
+const indentOf = l => l.replace(/\t/g, '    ').match(/^ */)[0].length;
+
+function blocks(lines) {
+  let out = '', i = 0;
+  const tableAt = k => k + 1 < lines.length && lines[k].includes('|') && lines[k + 1].includes('-') && sepRe.test(lines[k + 1]);
+  const startsBlock = k => /^\s{0,3}#{1,6}\s/.test(lines[k]) || fenceRe.test(lines[k]) || /^\s{0,3}>/.test(lines[k]) || hrRe.test(lines[k]) || listRe.test(lines[k]) || tableAt(k);
+  while (i < lines.length) {
+    const l = lines[i];
+    if (blank(l)) { i++; continue; }
+    let m;
+    if ((m = fenceRe.exec(l))) {
+      const ch = m[1][0], n = m[1].length, ind = indentOf(l), buf = [];
+      const close = new RegExp('^\\s*' + (ch === '`' ? '`' : '~') + '{' + n + ',}\\s*$');
+      for (i++; i < lines.length && !close.test(lines[i]); i++) buf.push(lines[i].slice(Math.min(ind, indentOf(lines[i]))));
+      i++;
+      out += `<pre class="code"><code>${esc(buf.join('\n'))}</code></pre>`;
+    } else if ((m = /^\s{0,3}(#{1,6})\s+(.*?)(?:\s+#+)?\s*$/.exec(l))) {
+      out += `<h${m[1].length}>${inline(m[2])}</h${m[1].length}>`; i++;
+    } else if (hrRe.test(l)) {
+      out += '<hr>'; i++;
+    } else if (/^\s{0,3}>/.test(l)) {
+      const buf = [];
+      for (; i < lines.length && /^\s{0,3}>/.test(lines[i]); i++) buf.push(lines[i].replace(/^\s{0,3}>\s?/, ''));
+      out += `<blockquote>${blocks(buf)}</blockquote>`;
+    } else if (tableAt(i)) {
+      const head = splitRow(l), align = splitRow(lines[i + 1]).map(c => c.startsWith(':') && c.endsWith(':') ? 'center' : c.endsWith(':') ? 'right' : '');
+      const cell = (tag, c, k) => `<${tag}${align[k] ? ` style="text-align:${align[k]}"` : ''}>${inline(c)}</${tag}>`;
+      let html = '<table><thead><tr>' + head.map((c, k) => cell('th', c, k)).join('') + '</tr></thead><tbody>';
+      for (i += 2; i < lines.length && !blank(lines[i]) && lines[i].includes('|'); i++) html += '<tr>' + splitRow(lines[i]).map((c, k) => cell('td', c, k)).join('') + '</tr>';
+      out += html + '</tbody></table>';
+    } else if ((m = listRe.exec(l))) {
+      const base = indentOf(l), ordered = /\d/.test(m[2]), start = parseInt(m[2], 10), items = [];
+      while (i < lines.length) {
+        const lm = listRe.exec(lines[i]);
+        if (lm && indentOf(lines[i]) <= base) { items.push([lm[3]]); i++; }
+        else if (blank(lines[i])) {
+          let j = i; while (j < lines.length && blank(lines[j])) j++;
+          if (items.length && j < lines.length && (listRe.test(lines[j]) || indentOf(lines[j]) > base)) { for (; i < j; i++) items[items.length - 1].push(''); } else break;
+        } else if (items.length && indentOf(lines[i]) > base) { items[items.length - 1].push(lines[i]); i++; }
+        else break;
+      }
+      const tag = ordered ? 'ol' : 'ul';
+      out += `<${tag}${ordered && start !== 1 ? ` start="${start}"` : ''}>` + items.map(it => {
+        const rest = it.slice(1), ind = Math.min(...rest.filter(x => !blank(x)).map(indentOf), Infinity);
+        const inner = blocks([it[0], ...rest.map(x => (blank(x) || !isFinite(ind)) ? x : x.replace(/\t/g, '    ').slice(ind))]);
+        return '<li>' + inner.replace(/^<p>([\s\S]*?)<\/p>/, '$1') + '</li>';
+      }).join('') + `</${tag}>`;
+    } else {
+      const buf = [l];
+      for (i++; i < lines.length && !blank(lines[i]) && !startsBlock(i); i++) buf.push(lines[i]);
+      out += '<p>' + inline(buf.join('\n')).replace(/ {2,}\n|\\\n/g, '<br>').replace(/\n/g, ' ') + '</p>';
+    }
+  }
+  return out;
+}
+const renderMd = src => blocks(src.replace(/\r\n?/g, '\n').replace(/^---\n[\s\S]*?\n---\n?/, '').split('\n'));
+
+// Wrap search hits inside already-rendered HTML.
+function markText(root, toks) {
+  if (!toks.length) return;
+  const re = new RegExp(toks.slice().sort((a, b) => b.length - a.length).map(reEsc).join('|'), 'gi');
+  const nodes = [], w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+  while (w.nextNode()) nodes.push(w.currentNode);
+  for (const n of nodes) {
+    const text = n.nodeValue; re.lastIndex = 0;
+    let m, last = 0, frag = null;
+    while ((m = re.exec(text))) {
+      frag = frag || document.createDocumentFragment();
+      if (m.index > last) frag.append(text.slice(last, m.index));
+      const mk = document.createElement('mark'); mk.textContent = m[0]; frag.append(mk);
+      last = m.index + m[0].length;
+    }
+    if (frag) { if (last < text.length) frag.append(text.slice(last)); n.replaceWith(frag); }
+  }
+}
+
+function count(hay, w) { let n = 0, i = -1; while ((i = hay.indexOf(w, i + 1)) !== -1) n++; return n; }
+
+// Every word must appear somewhere in the skill. Name hits rank above description, then files, then body text.
+function search(q) {
+  const t = tokens(q);
+  if (!t.length) return S.map(s => ({ s, score: 0 }));
+  const out = [];
+  for (const s of S) {
+    let score = 0, ok = true;
+    for (const w of t) {
+      let sc = 0;
+      if (s._n === w) sc += 100; else if (s._n.startsWith(w)) sc += 40; else if (s._n.includes(w)) sc += 25;
+      if (s._d.includes(w)) sc += 10 + (new RegExp('\\b' + reEsc(w) + '\\b').test(s._d) ? 5 : 0);
+      if (s._f.includes(w)) sc += 3;
+      const c = count(s._b, w);
+      if (c) sc += 1 + Math.min(c, 10) * 0.5;
+      if (!sc) { ok = false; break; }
+      score += sc;
+    }
+    if (ok) out.push({ s, score });
+  }
+  return out.sort((a, b) => b.score - a.score || a.s.name.localeCompare(b.s.name));
+}
+
+function snippet(s, toks) {
+  const w = toks.find(w => !s._n.includes(w) && !s._d.includes(w) && s._b.includes(w));
+  if (!w) return '';
+  const m = new RegExp(reEsc(w), 'i').exec(s.body);
+  if (!m) return '';
+  const a = Math.max(0, m.index - 50), b = Math.min(s.body.length, m.index + 90);
+  return (a ? '…' : '') + s.body.slice(a, b).replace(/\s+/g, ' ').trim() + (b < s.body.length ? '…' : '');
+}
+
+const badge = s => s.manual ? '<span class="badge" title="Only runs when you type /' + esc(s.name) + '">manual</span>' : '';
+
+$('grid').innerHTML = S.map(s => `
+  <button class="card" type="button" data-name="${esc(s.name)}">
+    <span class="top"><span class="name">${esc(s.name)}</span>${badge(s)}</span>
+    <span class="desc">${esc(s.description) || '<em>No description</em>'}</span>
+    <span class="foot">${s.file_count ? s.file_count + ' extra file' + (s.file_count > 1 ? 's' : '') : 'SKILL.md only'}</span>
+  </button>`).join('');
+$('grid').addEventListener('click', e => { const c = e.target.closest('.card'); if (c) openSkill(c.dataset.name); });
+
+// ---- palette
+const pal = $('palette'), q = $('q'), list = $('results');
+let rows = [], active = 0;
+
+function render() {
+  const t = tokens(q.value);
+  rows = search(q.value);
+  active = 0;
+  $('count').textContent = `${rows.length} of ${S.length}`;
+  if (!rows.length) { list.innerHTML = `<li class="empty" role="presentation">No skill mentions “${esc(q.value)}”</li>`; q.removeAttribute('aria-activedescendant'); return; }
+  list.innerHTML = rows.map(({ s }, i) => {
+    const sn = snippet(s, t);
+    return `<li role="option" id="opt-${i}" data-i="${i}" aria-selected="${i === 0}">
+      <span class="r-top"><span class="name">${hl(s.name, t)}</span>${badge(s)}</span>
+      <span class="r-desc">${hl(s.description, t)}</span>
+      ${sn ? `<span class="r-snip">${hl(sn, t)}</span>` : ''}</li>`;
+  }).join('');
+  q.setAttribute('aria-activedescendant', 'opt-0');
+}
+function setActive(i) {
+  if (!rows.length) return;
+  active = (i + rows.length) % rows.length;
+  for (const li of list.querySelectorAll('[role=option]')) li.setAttribute('aria-selected', li.dataset.i == active);
+  const el = $('opt-' + active); q.setAttribute('aria-activedescendant', 'opt-' + active);
+  el && el.scrollIntoView({ block: 'nearest' });
+}
+function openPalette() { if (!pal.open) pal.showModal(); q.focus(); q.select(); render(); }
+function pick(i) { const r = rows[i]; if (!r) return; const t = tokens(q.value); pal.close(); openSkill(r.s.name, t); }
+
+q.addEventListener('input', render);
+q.addEventListener('keydown', e => {
+  if (e.key === 'ArrowDown') { e.preventDefault(); setActive(active + 1); }
+  else if (e.key === 'ArrowUp') { e.preventDefault(); setActive(active - 1); }
+  else if (e.key === 'Enter') { e.preventDefault(); pick(active); }
+});
+list.addEventListener('click', e => { const li = e.target.closest('[role=option]'); if (li) pick(+li.dataset.i); });
+list.addEventListener('mousemove', e => { const li = e.target.closest('[role=option]'); if (li && +li.dataset.i !== active) setActive(+li.dataset.i); });
+$('open-search').addEventListener('click', openPalette);
+for (const d of [pal, $('sheet')]) d.addEventListener('click', e => { if (e.target === d) d.close(); });
+
+document.addEventListener('keydown', e => {
+  const typing = /INPUT|TEXTAREA/.test(document.activeElement.tagName);
+  if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); pal.open ? pal.close() : openPalette(); }
+  else if (e.key === '/' && !typing && !e.metaKey && !e.ctrlKey && !$('sheet').open) { e.preventDefault(); openPalette(); }
+});
+
+// ---- detail sheet
+const sheet = $('sheet');
+function copy(text, btn, label) {
+  const done = () => { btn.textContent = 'Copied'; $('live').textContent = 'Copied'; setTimeout(() => (btn.textContent = label), 1200); };
+  if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(done, () => fallback());
+  else fallback();
+  function fallback() { const ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); done(); }
+}
+let cur = null;
+function openSkill(name, toks = []) {
+  const s = S.find(x => x.name === name); if (!s) return;
+  cur = s;
+  $('sheet-name').textContent = s.name;
+  $('sheet-badge').innerHTML = badge(s);
+  $('sheet-desc').textContent = s.description;
+  $('sheet-path').textContent = s.path + '/SKILL.md';
+  $('copy-cmd').textContent = 'Copy /' + s.name;
+  const extra = s.files.length ? `<p class="files">Also in this skill (${s.file_count}): ${s.files.map(f => '<code>' + esc(f) + '</code>').join(', ')}${s.file_count > s.files.length ? ', …' : ''}</p>` : '';
+  $('sheet-body').innerHTML = extra + '<div class="md">' + renderMd(s.body) + '</div>';
+  markText($('sheet-body').querySelector('.md'), toks);
+  if (!sheet.open) sheet.showModal();
+  $('sheet-body').scrollTop = 0;
+  const first = $('sheet-body').querySelector('.md mark');
+  if (first) first.scrollIntoView({ block: 'center' });
+  history.replaceState(null, '', '#' + s.name);
+}
+$('copy-cmd').addEventListener('click', e => copy('/' + cur.name, e.currentTarget, 'Copy /' + cur.name));
+$('copy-path').addEventListener('click', e => copy(cur.path, e.currentTarget, 'Copy path'));
+$('sheet-close').addEventListener('click', () => sheet.close());
+sheet.addEventListener('close', () => history.replaceState(null, '', location.pathname + location.search));
+
+if (location.hash.length > 1) openSkill(decodeURIComponent(location.hash.slice(1)));
+</script>
+</body>
+</html>

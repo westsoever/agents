@@ -25,6 +25,9 @@ When the owner hands you another session or agent to keep going, supervise, foll
 ## New skills go in `~/.agents`
 Create every new skill in `~/.agents/skills/<name>/SKILL.md` (repo `westsoever/agents`), never in a repo's `.claude/skills/` and never directly in `~/.claude/skills/`. This holds for `/skillfactory`, `skill-creator` and any other skill writer, whatever its default target. Then run `~/.agents/install.sh`, which links every skill into `~/.claude/skills/`, and commit and push `~/.agents` (explicit paths, fetch first). Exceptions: skills that a tool installs and manages itself (`soii install`, Claude plugins) stay where the tool puts them, and a team skill goes to `technobbq/agent-skills` only when the owner asks for a team skill.
 
+## "Which skill can do X?"
+Read `~/.agents/marketplace/skills.json` (name + description of every skill in `~/.agents`, ~8k tokens) and answer from it: best match first, then runners-up, each with a one-line reason and how it triggers (`manual: true` means the owner must type `/name`). If nothing fits, say so; don't stretch a near miss. For keyword hits inside a skill's body, grep `~/.agents/skills/*/SKILL.md`. After adding or editing a skill, rerun `python3 ~/.agents/marketplace/build.py`. The browsable version is `~/.agents/marketplace/index.html` (Cmd+K).
+
 ## Compact instructions
 When compacting, carry these forward in the summary, verbatim where possible (retro Tier 1, see `~/.claude/skills/retro/SKILL.md`):
 - Decisions made this session and the reason for each (what was chosen, what was rejected).
