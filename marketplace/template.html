@@ -68,8 +68,9 @@ dialog::backdrop { background: rgba(0,0,0,.45); }
 .btn { padding: 5px 12px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); cursor: pointer; font-size: 13px; }
 .btn:hover { border-color: var(--accent); }
 .path { font: 12px var(--mono); color: var(--muted); }
-/* Skill view: geometric sans (Futura on Mac, Century Gothic on Windows), identifiers and code stay monospace. */
-#sheet { --geo: Futura, "Avenir Next", Avenir, "Century Gothic", "Trebuchet MS", system-ui, sans-serif; font-family: var(--geo); }
+/* Skill view: Roboto (bundled below, works offline); identifiers and code stay monospace. */
+/*__FONTS__*/
+#sheet { --text: Roboto, system-ui, -apple-system, "Segoe UI", sans-serif; font-family: var(--text); }
 #sheet .name, #sheet .path, #sheet code, #sheet pre { font-family: var(--mono); }
 .sheet-body { overflow: auto; flex: 1; padding: 20px 28px 32px; }
 .files { margin: 0 0 18px; font-size: 13px; color: var(--muted); line-height: 1.7; }

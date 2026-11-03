@@ -8,6 +8,7 @@ Reads every skills/<name>/SKILL.md and writes, next to this file:
 Run:  python3 ~/.agents/marketplace/build.py
 Standard library only. Re-run after adding or editing a skill.
 """
+import base64
 import json
 import re
 import sys
@@ -73,6 +74,23 @@ def list_files(folder):
     return files
 
 
+def font_faces():
+    """@font-face rules with Roboto (Apache-2.0) inlined as base64, so the page needs no network.
+    Both files are variable fonts covering weights 400-700; latin subset (covers Danish letters)."""
+    faces = []
+    for style, fname in (("normal", "roboto-latin.woff2"), ("italic", "roboto-latin-italic.woff2")):
+        path = HERE / "fonts" / fname
+        if not path.is_file():
+            print(f"warn: {path} missing, the skill view falls back to the system font", file=sys.stderr)
+            continue
+        b64 = base64.b64encode(path.read_bytes()).decode("ascii")
+        faces.append(
+            "@font-face { font-family: Roboto; font-style: %s; font-weight: 400 700; font-display: swap; "
+            "src: url(data:font/woff2;base64,%s) format('woff2'); }" % (style, b64)
+        )
+    return "\n".join(faces)
+
+
 def main():
     skills = []
     for d in sorted(SKILLS.iterdir()):
@@ -112,7 +130,8 @@ def main():
     # "<" escaped so a SKILL.md containing </script> cannot end the data block.
     data = json.dumps({**meta, "skills": skills}, ensure_ascii=False).replace("<", "\\u003c")
     template = (HERE / "template.html").read_text(encoding="utf-8")
-    (HERE / "index.html").write_text(template.replace("__DATA__", data), encoding="utf-8")
+    page = template.replace("/*__FONTS__*/", font_faces()).replace("__DATA__", data)
+    (HERE / "index.html").write_text(page, encoding="utf-8")
 
     print(f"{len(skills)} skills -> {HERE / 'index.html'} and skills.json")
 

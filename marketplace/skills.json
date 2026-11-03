@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-03 10:52",
+ "generated": "2026-11-03 11:07",
  "source": "~/.agents/skills",
  "count": 68,
  "how_to_use": "Pick the skills whose description fits the request. manual=true means it only runs when typed as /name.",
