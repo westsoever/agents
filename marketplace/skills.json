@@ -1,7 +1,7 @@
 {
- "generated": "2026-11-03 11:07",
+ "generated": "2026-11-03 11:51",
  "source": "~/.agents/skills",
- "count": 68,
+ "count": 69,
  "how_to_use": "Pick the skills whose description fits the request. manual=true means it only runs when typed as /name.",
  "skills": [
   {
@@ -345,6 +345,12 @@
    "description": "Researches a question properly. Before searching, it sharpens the question (type, scope, population or context, what counts as an answer, feasibility), using Megan Peters' method for developing good research questions (Nature Human Behaviour, 2025). Then it reads widely and closely with primary sources, and writes an answer-first result with linked evidence and open questions. In the COS vault it files the result as a research note in 04-Resources/Library/Research/. Use when the user says \"research this\", \"look into\", \"find out whether\", \"what does the evidence say about\", \"dig into\", \"is it true that\", or types /research.",
    "manual": false,
    "path": "~/.agents/skills/research"
+  },
+  {
+   "name": "sheets-dashboard",
+   "description": "Build a self-updating dashboard inside a Google Sheet with Apps Script (Code.gs) - a hidden calc tab of formulas over the data tab, plus a Dashboard tab with KPI tiles, charts and month/quarter dropdowns that recompute when new data lands. Use when the owner types /sheets-dashboard or asks for a dashboard, KPI tab, charts or a period picker in a Google Sheet, built or rebuilt by a script.",
+   "manual": false,
+   "path": "~/.agents/skills/sheets-dashboard"
   },
   {
    "name": "skillfactory",
