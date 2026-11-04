@@ -273,6 +273,141 @@
       "skillFolderHash": "8ad8430c42a6f8cd18758dddb70cfee399725de6",
       "installedAt": "2026-10-29T23:02:24.390Z",
       "updatedAt": "2026-10-29T23:02:24.390Z"
+    },
+    "capture-video-frames": {
+      "source": "pamelafox/presentation-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/pamelafox/presentation-skills.git",
+      "skillPath": ".agents/skills/capture-video-frames/SKILL.md",
+      "skillFolderHash": "ea9f05924ff77f86882a1d0ccb5c32c1b2425630",
+      "installedAt": "2026-10-30T10:55:05.542Z",
+      "updatedAt": "2026-10-30T10:55:05.542Z"
+    },
+    "convert-slides-to-images": {
+      "source": "pamelafox/presentation-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/pamelafox/presentation-skills.git",
+      "skillPath": ".agents/skills/convert-slides-to-images/SKILL.md",
+      "skillFolderHash": "61483fb756c0f4c55e0c888849205ca72fd79b2d",
+      "installedAt": "2026-10-30T10:55:05.546Z",
+      "updatedAt": "2026-10-30T10:55:05.546Z"
+    },
+    "discussion-commenter": {
+      "source": "pamelafox/presentation-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/pamelafox/presentation-skills.git",
+      "skillPath": ".agents/skills/discussion-commenter/SKILL.md",
+      "skillFolderHash": "a627bd0be3f08dbef7d941a0becda88afb7b2ddc",
+      "installedAt": "2026-10-30T10:55:05.547Z",
+      "updatedAt": "2026-10-30T10:55:05.547Z"
+    },
+    "extract-slide-text": {
+      "source": "pamelafox/presentation-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/pamelafox/presentation-skills.git",
+      "skillPath": ".agents/skills/extract-slide-text/SKILL.md",
+      "skillFolderHash": "9ff568905d42c82264fd9b8cde2c3f674b2d7f89",
+      "installedAt": "2026-10-30T10:55:05.549Z",
+      "updatedAt": "2026-10-30T10:55:05.549Z"
+    },
+    "extract-transcript": {
+      "source": "pamelafox/presentation-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/pamelafox/presentation-skills.git",
+      "skillPath": ".agents/skills/extract-transcript/SKILL.md",
+      "skillFolderHash": "67b7ee9b293cf731b81dc6b385d7ed5ecaf08964",
+      "installedAt": "2026-10-30T10:55:05.550Z",
+      "updatedAt": "2026-10-30T10:55:05.550Z"
+    },
+    "fetch-slides": {
+      "source": "pamelafox/presentation-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/pamelafox/presentation-skills.git",
+      "skillPath": ".agents/skills/fetch-slides/SKILL.md",
+      "skillFolderHash": "726a2a9a0da0055969546190db4913c71eb76d36",
+      "installedAt": "2026-10-30T10:55:05.551Z",
+      "updatedAt": "2026-10-30T10:55:05.551Z"
+    },
+    "generate-images-mai": {
+      "source": "pamelafox/presentation-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/pamelafox/presentation-skills.git",
+      "skillPath": ".agents/skills/generate-images-mai/SKILL.md",
+      "skillFolderHash": "118c08702bd2099196a53f436348a9a62bb02fdd",
+      "installedAt": "2026-10-30T10:55:05.552Z",
+      "updatedAt": "2026-10-30T10:55:05.552Z"
+    },
+    "generate-writeup": {
+      "source": "pamelafox/presentation-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/pamelafox/presentation-skills.git",
+      "skillPath": ".agents/skills/generate-writeup/SKILL.md",
+      "skillFolderHash": "21ddccfe0a7aff4b29ccc5cb9bbf89c4057f1f54",
+      "installedAt": "2026-10-30T10:55:05.553Z",
+      "updatedAt": "2026-10-30T10:55:05.553Z"
+    },
+    "make-revealjs-presentation": {
+      "source": "pamelafox/presentation-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/pamelafox/presentation-skills.git",
+      "skillPath": ".agents/skills/make-revealjs-presentation/SKILL.md",
+      "skillFolderHash": "9f5ddd151c6c1e94b5c467c52edf4e9e3fc99910",
+      "installedAt": "2026-10-30T10:55:05.554Z",
+      "updatedAt": "2026-10-30T10:55:05.554Z"
+    },
+    "outline-slides": {
+      "source": "pamelafox/presentation-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/pamelafox/presentation-skills.git",
+      "skillPath": ".agents/skills/outline-slides/SKILL.md",
+      "skillFolderHash": "e5ca267b5b817c9802b39f22249b96b6392b1c26",
+      "installedAt": "2026-10-30T10:55:05.555Z",
+      "updatedAt": "2026-10-30T10:55:05.555Z"
+    },
+    "pdf-to-markdown": {
+      "source": "pamelafox/presentation-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/pamelafox/presentation-skills.git",
+      "skillPath": ".agents/skills/pdf-to-markdown/SKILL.md",
+      "skillFolderHash": "1b6db5933967b9f23ce7d7e31ea651e30c6500ae",
+      "installedAt": "2026-10-30T10:55:05.556Z",
+      "updatedAt": "2026-10-30T10:55:05.556Z"
+    },
+    "review-presentation": {
+      "source": "pamelafox/presentation-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/pamelafox/presentation-skills.git",
+      "skillPath": ".agents/skills/review-presentation/SKILL.md",
+      "skillFolderHash": "d135e3c13da39feacc4ca61878293acaee09b06a",
+      "installedAt": "2026-10-30T10:55:05.557Z",
+      "updatedAt": "2026-10-30T10:55:05.557Z"
+    },
+    "thumbnail-of-pptx": {
+      "source": "pamelafox/presentation-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/pamelafox/presentation-skills.git",
+      "skillPath": ".agents/skills/thumbnail-of-pptx/SKILL.md",
+      "skillFolderHash": "0b90954487ed8873ba46fc4281bc6aa8dde73554",
+      "installedAt": "2026-10-30T10:55:05.557Z",
+      "updatedAt": "2026-10-30T10:55:05.557Z"
+    },
+    "youtube-description": {
+      "source": "pamelafox/presentation-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/pamelafox/presentation-skills.git",
+      "skillPath": ".agents/skills/youtube-description/SKILL.md",
+      "skillFolderHash": "507394a8229607482bb01516399a96e3f19dadd6",
+      "installedAt": "2026-10-30T10:55:05.558Z",
+      "updatedAt": "2026-10-30T10:55:05.558Z"
+    },
+    "youtube-live-chat": {
+      "source": "pamelafox/presentation-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/pamelafox/presentation-skills.git",
+      "skillPath": ".agents/skills/youtube-live-chat/SKILL.md",
+      "skillFolderHash": "39b45d74d9d88104109a67d938026a5b43647cc5",
+      "installedAt": "2026-10-30T10:55:05.558Z",
+      "updatedAt": "2026-10-30T10:55:05.558Z"
     }
   },
   "dismissed": {
