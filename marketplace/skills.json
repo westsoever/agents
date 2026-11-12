@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-03 21:42",
+ "generated": "2026-11-12 15:28",
  "source": "~/.agents/skills",
  "count": 70,
  "how_to_use": "Pick the skills whose description fits the request. manual=true means it only runs when typed as /name.",
@@ -84,7 +84,7 @@
   },
   {
    "name": "cos-unbox",
-   "description": "The COS vault's own /unbox (run it in ~/cos; soii updates never overwrite it, unlike soii's template /unbox). Unboxes the Inbox: takes everything out and puts it where it belongs in the vault. Reads every note in 00-Inbox/ (clippings and any agent-queue/ above all), fetches linked pages the way the Obsidian Web Clipper does, files each item as a typed note (article, video, research) in 04-Resources/Library/, sends 'check this out' items, job posts and tasks to the flowbuddy Inbox through its ingest endpoint (tasks live in flowbuddy since 2026-11-01, see AGENTS.md), logs count captures such as '20 pushups' to their count goal (with the capture's day and time), archives the handled queue notes, and, only if you use Todoist with an agent that queues tasks into your Inbox, marks those tasks complete once filed, because flowbuddy owns the task list (Todoist is optional: without it that step never runs). Shows the plan before it writes and never pushes. Run it whenever, not just weekly. Use when the owner says 'clean up the inbox', 'empty the inbox', 'process the agent queue', 'file my clippings', 'unbox the inbox', or types /unbox or /cos-unbox.",
+   "description": "The COS vault's own /unbox (run it in ~/cos; soii updates never overwrite it, unlike soii's template /unbox). Unboxes the Inbox: takes everything out and puts it where it belongs in the vault. Reads every note in 00-Inbox/ (clippings and any agent-queue/ above all), fetches linked pages the way the Obsidian Web Clipper does, files each item as a typed note (article, video, research) in 04-Resources/Library/, sends 'check this out' items, job posts and tasks to the flowbuddy Inbox through its ingest endpoint (tasks live in flowbuddy since 2026-11-01, see AGENTS.md), logs count captures such as '20 pushups' to their count goal (with the capture's day and time), archives the handled queue notes, and, only if you use Todoist with an agent that queues tasks into your Inbox, marks those tasks complete once filed, because flowbuddy owns the task list (Todoist is optional: without it that step never runs). Shows the plan, then carries it out without asking (the owner always answers Go), and never pushes. Run it whenever, not just weekly. Use when the owner says 'clean up the inbox', 'empty the inbox', 'process the agent queue', 'file my clippings', 'unbox the inbox', or types /unbox or /cos-unbox.",
    "manual": false,
    "path": "~/.agents/skills/cos-unbox"
   },

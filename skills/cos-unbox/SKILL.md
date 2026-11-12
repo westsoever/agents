@@ -1,6 +1,6 @@
 ---
 name: cos-unbox
-description: "The COS vault's own /unbox (run it in ~/cos; soii updates never overwrite it, unlike soii's template /unbox). Unboxes the Inbox: takes everything out and puts it where it belongs in the vault. Reads every note in 00-Inbox/ (clippings and any agent-queue/ above all), fetches linked pages the way the Obsidian Web Clipper does, files each item as a typed note (article, video, research) in 04-Resources/Library/, sends 'check this out' items, job posts and tasks to the flowbuddy Inbox through its ingest endpoint (tasks live in flowbuddy since 2026-11-01, see AGENTS.md), logs count captures such as '20 pushups' to their count goal (with the capture's day and time), archives the handled queue notes, and, only if you use Todoist with an agent that queues tasks into your Inbox, marks those tasks complete once filed, because flowbuddy owns the task list (Todoist is optional: without it that step never runs). Shows the plan before it writes and never pushes. Run it whenever, not just weekly. Use when the owner says 'clean up the inbox', 'empty the inbox', 'process the agent queue', 'file my clippings', 'unbox the inbox', or types /unbox or /cos-unbox."
+description: "The COS vault's own /unbox (run it in ~/cos; soii updates never overwrite it, unlike soii's template /unbox). Unboxes the Inbox: takes everything out and puts it where it belongs in the vault. Reads every note in 00-Inbox/ (clippings and any agent-queue/ above all), fetches linked pages the way the Obsidian Web Clipper does, files each item as a typed note (article, video, research) in 04-Resources/Library/, sends 'check this out' items, job posts and tasks to the flowbuddy Inbox through its ingest endpoint (tasks live in flowbuddy since 2026-11-01, see AGENTS.md), logs count captures such as '20 pushups' to their count goal (with the capture's day and time), archives the handled queue notes, and, only if you use Todoist with an agent that queues tasks into your Inbox, marks those tasks complete once filed, because flowbuddy owns the task list (Todoist is optional: without it that step never runs). Shows the plan, then carries it out without asking (the owner always answers Go), and never pushes. Run it whenever, not just weekly. Use when the owner says 'clean up the inbox', 'empty the inbox', 'process the agent queue', 'file my clippings', 'unbox the inbox', or types /unbox or /cos-unbox."
 ---
 
 # Unbox
@@ -12,7 +12,7 @@ Empties `00-Inbox/` properly: every item ends up typed and filed, sent to flowbu
 
 Hard rules:
 - These are the owner's private notes. Fetch only the URLs the owner saved (for an Instagram link, its public embed page and slide images, and for a reel its audio, step 3). **Never put any other note's contents into a fetch or a search.** Never log in anywhere.
-- **Show the plan and get a yes before writing anything.**
+- **Show the plan, then carry it out without asking.** The owner decided on 2026-11-12 that Go is the standing answer: never ask Go / Change something. Stop and ask only if the plan would delete, overwrite or push something, which the rules below never allow anyway.
 - **Archive, never delete.** No `rm`, except the scratch folders step 3 makes outside the vault (Defuddle's two, and `/tmp/unbox-ig` for Instagram slides and reel audio). No `git push`, no `--force`, no `reset --hard`.
 - Never touch an agent's own state files (anything under `09-agents/`, such as a Todoist agent's `seen_task_ids.json`): they stop that agent re-queuing items. Running `09-agents/goal-log/goal-log.ts` is fine: it writes only goal notes and the captures it archives. So are `09-agents/ig-clip/ig-clip.ts` and `09-agents/reel-transcribe/reel-transcribe.py`: they write only into the scratch folder they are given.
 - Never overwrite a note. If the name exists, add ` 2`, ` 3`.
@@ -164,7 +164,7 @@ Leave out the `Map:` line when the vault has no "Areas and Resources" note (soii
 
 ## 4. Tasks go to flowbuddy
 
-Every captured task, job post and check-out becomes a task in Lennert's flowbuddy Inbox, sent through flowbuddy's `ingest` endpoint after the Go (step 6). Never write a task note: `03-Areas/Tasks/` is read-only history.
+Every captured task, job post and check-out becomes a task in Lennert's flowbuddy Inbox, sent through flowbuddy's `ingest` endpoint in step 6. Never write a task note: `03-Areas/Tasks/` is read-only history.
 
 For each task, `Write` the request body to `/tmp/unbox-task-<n>.json`:
 
@@ -182,9 +182,9 @@ It answers `{"number": 1042}`: that task's flowbuddy number. If it fails (flowbu
 
 `due` and priority are set in flowbuddy, not here. Todoist's date is the capture day, not a deadline: if the task text names a real deadline, put it in the text.
 
-## 5. Show the plan, ask
+## 5. Show the plan, then go
 
-One table: *queue/clipping → destination → type/kind (and `Not clipped:` reason, if any) → Todoist action*. Goal counts get one row each: capture → goal → the line it adds (`2026-10-21 07:32 — 20 push-ups`). Say what will be fetched, what can't be, and what stays in the Inbox. Ask with AskUserQuestion: **Go / Change something**. Write nothing before a Go.
+One table: *queue/clipping → destination → type/kind (and `Not clipped:` reason, if any) → Todoist action*. Goal counts get one row each: capture → goal → the line it adds (`2026-10-21 07:32 — 20 push-ups`). Say what will be fetched, what can't be, and what stays in the Inbox. Print it, then go straight on to step 6 without asking: Go is the owner's standing answer (decided 2026-11-12). The owner can still interrupt or correct after seeing the plan.
 
 ## 6. Do it
 
