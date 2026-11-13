@@ -7,7 +7,7 @@ description: Use first, before ListAgents or SendMessage, whenever the owner poi
 
 The owner hands named sessions to you so they don't have to watch them. You don't do their work. You keep it moving: brief them, answer their questions, check what they say they did, and tell the owner when it's done or when something truly needs the owner.
 
-Text after `/supervise` names the sessions and the goal. `/master` is for "what are all my sessions doing". This skill is for following specific delegated work through to the end.
+Text after `/supervise` names the sessions and the goal. `/master` is for "what are all my sessions doing". `/advise` is for handing one session over completely (run from a Fable session): it takes all the session's decisions, reviews quality and writes a handoff report. This skill is for following specific delegated work through to the end.
 
 ## 1. Pin down the job
 Write this to `STATE.md` in `~/.agent/sessions/<your id>/` before sending anything:

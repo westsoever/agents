@@ -1,7 +1,7 @@
 {
- "generated": "2026-11-12 15:28",
+ "generated": "2026-11-13 10:51",
  "source": "~/.agents/skills",
- "count": 70,
+ "count": 71,
  "how_to_use": "Pick the skills whose description fits the request. manual=true means it only runs when typed as /name.",
  "skills": [
   {
@@ -15,6 +15,12 @@
    "description": "Cut through context loss — reconcile the current plan file, CLAUDE.md, and claude-mem into a short TL;DR plus ready-to-paste agent prompts for what's actually left",
    "manual": false,
    "path": "~/.agents/skills/ad-execute"
+  },
+  {
+   "name": "advise",
+   "description": "Use when the owner hands one session over completely with \"/advise @Name [goal]\", \"advise @X\", \"take over @X and see it through\", or \"hand @X to the advisor\". Runs in a stronger-model session (Fable) next to the working session (Opus or Sonnet). It takes every decision the session asks for, reviews its plan and work for quality, keeps it going until the goal is verified done, then writes a short handoff report. The owner can forget the session. For several sessions with lighter follow-up use /supervise; for an overview of all sessions use /master.",
+   "manual": false,
+   "path": "~/.agents/skills/advise"
   },
   {
    "name": "better-writing",
