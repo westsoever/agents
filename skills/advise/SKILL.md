@@ -1,20 +1,20 @@
 ---
 name: advise
-description: Use when the owner hands one session over completely with "/advise @Name [goal]", "advise @X", "take over @X and see it through", or "hand @X to the advisor". Runs in a stronger-model session (Fable) next to the working session (Opus or Sonnet). It takes every decision the session asks for, reviews its plan and work for quality, keeps it going until the goal is verified done, then writes a short handoff report. The owner can forget the session. For several sessions with lighter follow-up use /supervise; for an overview of all sessions use /master.
+description: Use whenever the owner points at one or more sessions or agents (an @Name, a background, cron or Paperclip agent) and hands them over to be kept going, supervised, decided for or followed up on, for example "/advise @Name [goal]", "advise @X", "take over @X and see it through", "keep tabs on @X and report back when it's done", "implement this through @Helper and take decisions for it", or "did the cron session push anything? follow up with it". Best run in a Fable session next to Opus or Sonnet working sessions. It takes every decision the sessions ask for, reviews their work for quality, keeps them going until the goal is verified done, then writes a short handoff report, so the owner can forget them. /master auto also uses its consult mode for single hard decisions. For an overview of all sessions, use /master.
 ---
 
 # /advise
 
-The owner hands you one working session and walks away. You are its senior advisor and decision-maker. You don't do its work. You:
+The owner hands you one or more working sessions and walks away. You are its senior advisor and decision-maker. You don't do its work. You:
 - set the bar
 - take its decisions
 - check what it claims
 - keep it moving until the goal is met and verified
 - write a short handoff report
 
-The owner wants to forget about this session, so only interrupt them for the cases listed in step 1.
+The owner wants to forget about these sessions, so only interrupt them for the cases listed in step 1.
 
-Arguments: `/advise @Name [goal]`. `/advise checkin` is the fallback check (step 5). `/advise stop` ends advising: delete the cron job and write the report (step 7).
+Arguments: `/advise @Name [@Name2 …] [goal]`. Run every step below for each target. With several targets, the goal and the done-checks can be per target. `/advise checkin` is the fallback check (step 5). `/advise stop` ends advising: delete the cron job and write the report (step 7).
 
 ## 0. Model check
 This skill is meant to run on Fable (`/model fable`), with the target on Opus or Sonnet. If you are not on a model stronger than the target, say so once in your first reply and carry on.
@@ -28,7 +28,7 @@ Write this to `STATE.md` in `~/.agent/sessions/<your id>/` before you send anyth
 - **Owner keeps:** production writes (Supabase applies, prod migrations, deploys), anything destructive or irreversible, spending money, sending things to people outside, scope changes that alter the goal, and anything a guard or permission blocked. Collect these. Don't stop the work for them unless nothing else can move.
 
 ## 2. Read the target in full
-- `ListAgents` gives you the address. `~/.agents/skills/master/scripts/sessions.sh 48` gives its cwd, branch, context % and transcript.
+- Live sessions: `ListAgents` gives you the address. A target that is not live (a cron run, a Paperclip agent, an ended session) shows up in `~/.agents/skills/master/scripts/sessions.sh 48` and as commits on its branch. `~/.agents/skills/master/scripts/sessions.sh 48` gives its cwd, branch, context % and transcript.
 - `python3 -I ~/.agents/skills/master/scripts/digest.py <transcript> 12`. Read the last long assistant message in full.
 - Read its `STATE.md`/`NEXT.md`, the repo's `AGENTS.md`/`CLAUDE.md`, and the plan or spec it works from.
 - Check the facts yourself: `git fetch`, `git status -sb`, `git log --oneline origin/main..HEAD`, and `gh pr view` when there is a PR.
@@ -45,7 +45,7 @@ Send one `SendMessage` with `notify_when_idle: true`. Its first line must make s
   - Don't merge to main or do production writes yourself. Hand those back to the advisor.
 
 ## 4. Wait without polling
-An idle notice wakes you. Don't loop on `ListAgents` and don't ask "are you done?". As a fallback for a missed notice, create a `CronCreate` job every 30 minutes with the prompt `/advise checkin` if `CronList` doesn't already have one.
+An idle notice wakes you. Don't loop on `ListAgents` and don't ask "are you done?". For a target that can't send idle notices (cron, Paperclip, a remote branch), use one `Bash` call with `run_in_background` and an `until` loop on `git fetch` that exits when the branch moves. Keep the interval at 60 s or more. Mark the targets `advised by @<your name>` in `~/.agent/master/LEDGER.md` so /master leaves them to you. As a fallback for a missed notice, create a `CronCreate` job every 30 minutes with the prompt `/advise checkin` if `CronList` doesn't already have one.
 
 ## 5. On every idle notice (and on `checkin`)
 1. Read the full last reply, not the notice summary.
@@ -86,3 +86,16 @@ Then loop back to step 5 until every done-check passes.
    - **Left for the owner:** each item with a recommended option.
    - **Watch out:** anything fragile you noticed.
 4. Send the owner the same report as your final reply. Also send `PushNotification`: "<target>: done" or "<target>: needs you for N items".
+
+## Consult mode (one decision, called by /master auto)
+When the prompt says "consult mode", you are a one-shot advisor and nothing else:
+- Don't message any session and don't create cron jobs.
+- Read what you need to judge the decision: the transcript (`digest.py`), the repo and the diff.
+- Return at most 8 lines:
+  - **Recommendation**
+  - **Confidence:** high, medium or low
+  - **Reason**
+  - **Risk if wrong**
+  - **What would change the call**
+  - whether the session needs a full `/advise` (it keeps producing hard decisions)
+- If it is an owner-kept item (step 1), say so instead of deciding.

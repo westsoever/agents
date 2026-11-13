@@ -1,7 +1,7 @@
 {
- "generated": "2026-11-13 10:51",
+ "generated": "2026-11-13 11:09",
  "source": "~/.agents/skills",
- "count": 71,
+ "count": 70,
  "how_to_use": "Pick the skills whose description fits the request. manual=true means it only runs when typed as /name.",
  "skills": [
   {
@@ -18,7 +18,7 @@
   },
   {
    "name": "advise",
-   "description": "Use when the owner hands one session over completely with \"/advise @Name [goal]\", \"advise @X\", \"take over @X and see it through\", or \"hand @X to the advisor\". Runs in a stronger-model session (Fable) next to the working session (Opus or Sonnet). It takes every decision the session asks for, reviews its plan and work for quality, keeps it going until the goal is verified done, then writes a short handoff report. The owner can forget the session. For several sessions with lighter follow-up use /supervise; for an overview of all sessions use /master.",
+   "description": "Use whenever the owner points at one or more sessions or agents (an @Name, a background, cron or Paperclip agent) and hands them over to be kept going, supervised, decided for or followed up on, for example \"/advise @Name [goal]\", \"advise @X\", \"take over @X and see it through\", \"keep tabs on @X and report back when it's done\", \"implement this through @Helper and take decisions for it\", or \"did the cron session push anything? follow up with it\". Best run in a Fable session next to Opus or Sonnet working sessions. It takes every decision the sessions ask for, reviews their work for quality, keeps them going until the goal is verified done, then writes a short handoff report, so the owner can forget them. /master auto also uses its consult mode for single hard decisions. For an overview of all sessions, use /master.",
    "manual": false,
    "path": "~/.agents/skills/advise"
   },
@@ -246,7 +246,7 @@
   },
   {
    "name": "master",
-   "description": "Act as the MASTER session over every local Claude Code session. Check in on all of them, report insights, list the decisions the owner must take (each with a recommended option), pass approved decisions on to the right session, and track each session's goal and progress with regular check-ins. Use when the owner types /master, asks \"what are my sessions doing\", or wants one place to steer all running sessions.",
+   "description": "Act as the MASTER session over every local Claude Code session. Watches all of them (on every idle notice and a 30-minute check-in), keeps a ledger of each session's goal and progress, and pools the decisions that need the owner into one batch, so a single answer moves every session forward. `/master auto` runs without the owner, takes decisions on its own and asks a Fable advisor when unsure. Use when the owner types /master, asks \"what are my sessions doing\", wants one place to steer all running sessions, or says they will be away and MASTER should decide. To hand one session over completely, use /advise.",
    "manual": false,
    "path": "~/.agents/skills/master"
   },
@@ -411,12 +411,6 @@
    "description": "Postgres best practices maintained by Supabase, for Postgres running anywhere. Load this skill BEFORE writing or changing anything that lives in a Postgres database: creating or altering tables and columns (including choosing column types), schema design, migrations and declarative schema files, RLS policies and the tests that verify them, indexes, triggers, database functions, queues and scheduled jobs (pg_cron, pgmq), vector/semantic search (pgvector), and restoring dumps (pg_restore) or importing data. Also load it when diagnosing slow queries, high CPU, timeouts, EXPLAIN plans, connection exhaustion, locking, bloat, or rows visible to the wrong user or tenant. This is not just a performance guide — schema, migration, security, and SQL authoring tasks need these rules too, even for a one-column change or a single query.",
    "manual": false,
    "path": "~/.agents/skills/supabase-postgres-best-practices"
-  },
-  {
-   "name": "supervise",
-   "description": "Use first, before ListAgents or SendMessage, whenever the owner points at another session or agent (an @Name, a background, Paperclip or cron agent) and wants it kept going, supervised, followed up on, or reported back on when done. Examples are \"keep tabs on @X\", \"keep that going and report back when it's done\", \"implement this through @Helper and take decisions for it\", \"supervise the session\", \"did the cron session push anything new? follow up with it\", or /supervise. Briefs the session, answers its questions within what the owner delegated, checks its claims with git fetch and its transcript, and reports only when it is done or the owner must decide. For an overview of all sessions, use /master.",
-   "manual": false,
-   "path": "~/.agents/skills/supervise"
   },
   {
    "name": "task-prd-creator",
