@@ -1,7 +1,7 @@
 {
- "generated": "2026-11-14 12:52",
+ "generated": "2026-11-14 13:39",
  "source": "~/.agents/skills",
- "count": 71,
+ "count": 70,
  "how_to_use": "Pick the skills whose description fits the request. manual=true means it only runs when typed as /name.",
  "skills": [
   {
@@ -417,12 +417,6 @@
    "description": "Use this skill when users request new features, enhancements, bug fixes, or any work that needs planning. Creates structured task files and PRDs (Product Requirements Documents) before implementation. Activates for \"I want to add X\", \"implement Y\", \"create a task for Z\", \"plan this feature\", or any feature request.",
    "manual": false,
    "path": "~/.agents/skills/task-prd-creator"
-  },
-  {
-   "name": "twinton-docs",
-   "description": "Write or update Twinton's internal documentation (manuals, how-tos, runbooks, tool and system pages) in the Twinton vault, in ASD-STE100 (Simplified Technical English), so each note fits the vault's PARA structure, frontmatter schema, Maps and index, and lands on main only as far as the user asked. Use this whenever the user asks to write, add, update or document something \"in the vault\", \"into the Twinton vault\", \"in the Twinton docs\", \"under 04-Resources/…\", or wants a manual, instructions, a runbook or a how-to for a Twinton tool, system, process or repo, e.g. \"write a manual for the gateway setup into the vault\", \"document how to run the miso app\", \"turn this README into a how-to in the vault\". Also use it when a local doc (README, docs/*.md, a spec, this conversation) should become a vault note. For TechBBQ's GitBook use gitbook-docs instead.",
-   "manual": false,
-   "path": "~/.agents/skills/twinton-docs"
   },
   {
    "name": "writing-style",
