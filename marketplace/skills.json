@@ -1,7 +1,7 @@
 {
- "generated": "2026-11-16 14:36",
+ "generated": "2026-11-16 16:58",
  "source": "~/.agents/skills",
- "count": 70,
+ "count": 71,
  "how_to_use": "Pick the skills whose description fits the request. manual=true means it only runs when typed as /name.",
  "skills": [
   {
@@ -90,7 +90,7 @@
   },
   {
    "name": "cos-unbox",
-   "description": "The COS vault's own /unbox (run it in ~/cos; soii updates never overwrite it, unlike soii's template /unbox). Unboxes the Inbox: takes everything out and puts it where it belongs in the vault. Reads every note in 00-Inbox/ (clippings and any agent-queue/ above all), fetches linked pages the way the Obsidian Web Clipper does, files each item as a typed note (article, video, research) in 04-Resources/Library/, triages every would-be task with a Haiku reader and a fixed decision tree (triage.md: merge into an open task, task with priority 1-4, Library note, or archive) so only relevant tasks reach flowbuddy and they arrive ranked, sends those 'check this out' items, job posts and tasks to the flowbuddy Inbox (tasks live in flowbuddy since 2026-11-01, see AGENTS.md), logs count captures such as '20 pushups' to their count goal (with the capture's day and time), archives the handled queue notes, and, only if you use Asana with an agent that queues tasks into your Inbox, marks those Asana tasks complete once filed, because flowbuddy owns the task list (Asana is optional: without it that step never runs; older Todoist queue notes are still completed in Todoist). Shows the plan, then carries it out without asking (the owner always answers Go), and never pushes. Run it whenever, not just weekly. Use when the owner says 'clean up the inbox', 'empty the inbox', 'process the agent queue', 'file my clippings', 'unbox the inbox', or types /unbox or /cos-unbox.",
+   "description": "The COS vault's own /unbox (run it in ~/cos; soii updates never overwrite it, unlike soii's template /unbox). Unboxes the Inbox: takes everything out and puts it where it belongs in the vault. Reads every note in 00-Inbox/ (clippings and any agent-queue/ above all), fetches linked pages the way the Obsidian Web Clipper does, files each item as a typed note (article, video, research) in 04-Resources/Library/, triages every would-be task with a Haiku reader and a fixed decision tree (triage.md: merge into an open task, task with priority 1-4, Library note, or archive) so only relevant tasks reach Asana and they arrive ranked, sends those 'check this out' items, job posts and tasks to the Asana Inbox (project flowbuddy, status inbox; tasks live in Asana since 2026-11-16, see AGENTS.md), logs count captures such as '20 pushups' to their count goal (with the capture's day and time), archives the handled queue notes, and, only if you use Asana with an agent that queues tasks into your Inbox, marks those Asana tasks complete once filed, because the Asana task project owns the task list (Asana is optional: without it that step never runs; older Todoist queue notes are still completed in Todoist). Shows the plan, then carries it out without asking (the owner always answers Go), and never pushes. Run it whenever, not just weekly. Use when the owner says 'clean up the inbox', 'empty the inbox', 'process the agent queue', 'file my clippings', 'unbox the inbox', or types /unbox or /cos-unbox.",
    "manual": false,
    "path": "~/.agents/skills/cos-unbox"
   },
@@ -111,6 +111,12 @@
    "description": "The original v1 taste-skill, preserved for projects depending on its exact behavior. The current default is `design-taste-frontend` (v2 experimental), which is a substantial rewrite. Use this v1 install name only if you need exact backward compatibility.",
    "manual": false,
    "path": "~/.agents/skills/design-taste-frontend-v1"
+  },
+  {
+   "name": "diskcleanup",
+   "description": "Use when the owner's Mac disk is full or getting crowded (\"disk space is crowded\", \"free up space\", \"purge storage\", \"/diskcleanup\"). Measures where the space goes, clears caches that rebuild themselves, strips build artifacts from retired or pushed repos, and comes back with a ranked list of what else can go and what must stay, without deleting data that is still relevant.",
+   "manual": false,
+   "path": "~/.agents/skills/diskcleanup"
   },
   {
    "name": "faceless-explainer",
