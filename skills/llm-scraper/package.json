@@ -3,8 +3,8 @@
   "private": true,
   "type": "module",
   "dependencies": {
-    "@ai-sdk/anthropic": "^3.0.143",
     "ai": "^6.0.333",
+    "ai-sdk-provider-claude-code": "^3.7.1",
     "llm-scraper": "^2.0.0",
     "playwright": "^1.65.1",
     "turndown": "^7.2.5",

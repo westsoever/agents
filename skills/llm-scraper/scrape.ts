@@ -1,11 +1,11 @@
 // Usage:
 //   bun scrape.ts md <url>                         page body -> markdown (no LLM, no API key)
-//   bun scrape.ts extract <url> <schema.json> [prompt]   structured JSON via Claude
+//   bun scrape.ts extract <url> <schema.json> [prompt]   structured JSON via Claude Agent SDK (Claude Code login, no API key)
 import { chromium } from 'playwright'
 import Turndown from 'turndown'
 import { z } from 'zod'
-import { Output } from 'ai'
-import { anthropic } from '@ai-sdk/anthropic'
+import { Output, wrapLanguageModel } from 'ai'
+import { claudeCode } from 'ai-sdk-provider-claude-code'
 import LLMScraper from 'llm-scraper'
 import { readFileSync } from 'node:fs'
 
@@ -23,8 +23,19 @@ try {
     console.log(new Turndown().remove(['style', 'script', 'noscript']).turndown(await page.innerHTML('body')))
   } else {
     const schema = z.fromJSONSchema(JSON.parse(readFileSync(schemaPath, 'utf8')))
-    const scraper = new LLMScraper(anthropic('claude-sonnet-5-5'))
-    const { data } = await scraper.run(page, Output.object({ schema }), { format: 'markdown', prompt })
+    // The provider reports finishReason "tool-calls" after its StructuredOutput call, which AI SDK 6 refuses to parse; report "stop".
+    const model = wrapLanguageModel({
+      model: claudeCode('sonnet'),
+      middleware: {
+        specificationVersion: 'v3',
+        wrapGenerate: async ({ doGenerate }) => {
+          const r = await doGenerate()
+          return { ...r, finishReason: { ...r.finishReason, unified: 'stop' as const } }
+        },
+      },
+    })
+    const scraper = new LLMScraper(model)
+    const { data } = await scraper.run(page, Output.object({ schema }), { format: 'markdown', messages: prompt ? [{ role: 'user', content: prompt }] : undefined })
     console.log(JSON.stringify(data, null, 2))
   }
 } finally {
