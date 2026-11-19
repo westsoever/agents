@@ -1,7 +1,7 @@
 {
- "generated": "2026-11-16 18:14",
+ "generated": "2026-11-19 14:21",
  "source": "~/.agents/skills",
- "count": 71,
+ "count": 72,
  "how_to_use": "Pick the skills whose description fits the request. manual=true means it only runs when typed as /name.",
  "skills": [
   {
@@ -249,6 +249,12 @@
    "description": "Reviews a branch, pull request or uncommitted change for the interface problems it introduced or regressed, across accessibility, layout, writing, typography, color and UI.",
    "manual": true,
    "path": "~/.agents/skills/interface-review"
+  },
+  {
+   "name": "llm-scraper",
+   "description": "Fetch a webpage with a real browser (Playwright) and return it as markdown, or extract structured JSON from it with Claude, using mishushakov/llm-scraper. Use when asked to scrape a site, turn a URL into markdown, or pull fields (prices, lists, contacts) out of a page, especially JS-rendered pages that a plain fetch misses.",
+   "manual": false,
+   "path": "~/.agents/skills/llm-scraper"
   },
   {
    "name": "master",
