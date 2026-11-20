@@ -33,6 +33,8 @@ bun 09-agents/goal-log/goal-log.ts scan   # count captures for goals ("20 pushup
 
 If `git pull --rebase` fails or the tree has uncommitted edits to Inbox files, stop and say so (`/soii-sync-fix` handles sync errors). Read every note found. Queue notes (from the `asana-to-cos` routine, which reads the Asana `cos-agent` project) carry `asana_task_gid` (older ones `todoist_task_id`) and a `**Task:**` line; clippings carry `source:` and a body. Vaults without an agent have only clippings and loose notes, which is fine.
 
+**Skip every queue note whose frontmatter has `clutch: true` and `status: queued`.** The local clutch runner (`09-agents/clutch-runner/`, LaunchAgent `ing.cos.clutch-runner`) owns those: it runs the online-content decision matrix, comments the verdict on the Asana task, files a Library note if the verdict calls for one and archives the queue note. Do not classify, file, triage or archive them, and never complete their Asana task (step 6.5 excludes them). Count them for the report as "left for the clutch runner". A clutch note that stays queued for hours means the runner is stuck: look at `~/.agent/clutch-runner/clutch-runner.log`, or delete the `clutch: true` line from the note to unbox it by hand.
+
 ## 2. Classify each note
 
 | What it is | Becomes | Goes to |
@@ -210,4 +212,4 @@ Goal counts first: `bun 09-agents/goal-log/goal-log.ts apply <the capture paths 
 
 ## 7. Report
 
-Six lines at most: filed (n, by folder), goal counts logged (n, with each goal's total today), sent to Asana (n, with their numbers and priorities), triage (n kept, n merged, n to the Library, n archived, with the archived items' reasons), couldn't clip (n, why), Asana completed (n), left in the Inbox (n, why). Then: `git push` when you're ready.
+Six lines at most: filed (n, by folder), goal counts logged (n, with each goal's total today), sent to Asana (n, with their numbers and priorities), triage (n kept, n merged, n to the Library, n archived, with the archived items' reasons), couldn't clip (n, why), Asana completed (n), left in the Inbox (n, why; add "n left for the clutch runner" if there were `clutch: true` notes). Then: `git push` when you're ready.
