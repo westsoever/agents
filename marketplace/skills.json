@@ -1,7 +1,7 @@
 {
- "generated": "2026-11-20 20:34",
+ "generated": "2026-11-23 17:16",
  "source": "~/.agents/skills",
- "count": 72,
+ "count": 73,
  "how_to_use": "Pick the skills whose description fits the request. manual=true means it only runs when typed as /name.",
  "skills": [
   {
@@ -219,6 +219,12 @@
    "description": "Install, discover, and wire registry blocks and components into HyperFrames compositions. Use when running hyperframes add or hyperframes catalog, installing one item or every block matching a tag, wiring an installed item into index.html, or working with hyperframes.json. Covers discovery, install locations, block sub-composition wiring, component snippet merging, and authoring a new block or component to contribute upstream (idea → scaffold → validate → PR).",
    "manual": false,
    "path": "~/.agents/skills/hyperframes-registry"
+  },
+  {
+   "name": "hyperresearch",
+   "description": "Rigorous verification pass on research. Either verifies an existing research note (path as argument) or runs the `research` skill first and then verifies its result. Checks that every quotation appears word for word in a source re-opened this session, re-opens each key source to confirm it says what the note claims, checks every DOI against Crossref for retractions and corrections, and counts reprints of one press release as one source. Outputs a verification table (claim, source, verdict confirmed / mismatch / unreachable / retracted) plus a fixed note or a list of fixes. Use when the user says \"hyperresearch\", \"verify this research\", \"fact-check this note\", \"check the sources in\", or types /hyperresearch.",
+   "manual": false,
+   "path": "~/.agents/skills/hyperresearch"
   },
   {
    "name": "image-to-code",
