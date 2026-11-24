@@ -1,7 +1,7 @@
 {
- "generated": "2026-11-24 13:32",
+ "generated": "2026-11-24 17:24",
  "source": "~/.agents/skills",
- "count": 73,
+ "count": 74,
  "how_to_use": "Pick the skills whose description fits the request. manual=true means it only runs when typed as /name.",
  "skills": [
   {
@@ -261,6 +261,12 @@
    "description": "Fetch a webpage with a real browser (Playwright) and return it as markdown, or extract structured JSON from it with Claude, using mishushakov/llm-scraper. Use when asked to scrape a site, turn a URL into markdown, or pull fields (prices, lists, contacts) out of a page, especially JS-rendered pages that a plain fetch misses.",
    "manual": false,
    "path": "~/.agents/skills/llm-scraper"
+  },
+  {
+   "name": "lol",
+   "description": "Lists of Lists. Use when the owner types /lol <goal>, asks for \"a list of lists\", \"a lol for X\", or to \"boil this down\" into a checklist. Turns a goal (typed, or a photo of a handwritten list) into a list of lists in the style of Adam Savage's \"Every Tool's a Hammer\": one top list, a sub-list under every item that isn't a single action, checkboxes with three states, and each branch boiled down to first principles until every leaf is a first physical action. Writes it to listsoflists.md in the repo that holds the work.",
+   "manual": false,
+   "path": "~/.agents/skills/lol"
   },
   {
    "name": "master",
