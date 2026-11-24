@@ -3,3 +3,4 @@
 *.log
 node_modules/
 skills/stageshow/shots/
+skills/*/scripts/bin/
