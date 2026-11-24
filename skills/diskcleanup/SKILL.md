@@ -16,6 +16,14 @@ Free as much space as possible on the owner's Mac without losing data that matte
 
 ## Steps
 
+0. **Check Kiri first, it is the usual biggest item.** The Kiri (Docker) VM disk `~/Library/Application Support/Kiri/vm/data.img` grows with every build and never shrinks on its own. It has reached 28-35 GB repeatedly. Its images and database volumes are dev state: never remove them.
+   - Measure: `du -sk "$HOME/Library/Application Support/Kiri/vm/data.img"`, `docker --context kiri system df`, and `docker --context kiri system df -v` (volumes). `system df` shows build cache as 0 B because the builder is stopped; the real cache is the volume `buildx_buildkit_kiri-build0_state` (it was 18 GB).
+   - Check that nothing is running: `docker --context kiri ps -q` is empty (ignore the `buildx_buildkit_*` container) and `pgrep -fl "docker build|buildx"` returns nothing. If a build or container is active, report the sizes and stop here.
+   - If idle, recommend (do not run without the owner's yes) in this order, with the expected saving:
+     1. `docker buildx inspect --bootstrap kiri-build && docker buildx prune --builder kiri-build --keep-storage 2GB -f` (build cache only; images stay).
+     2. Trim the VM disk so macOS gets the space back: `docker --context kiri run --rm --privileged -v /var/lib/kiri:/var/lib/kiri busybox fstrim -v /var/lib/kiri`. Without this the host file stays large.
+   - Afterwards recheck `du` on `data.img` and `df`, and report both.
+
 1. **Measure.** Run `df -h /System/Volumes/Data`, then `du -xhd1 ~ | sort -rh | head -30`. Drill into the biggest folders, usually `~/Library/Application Support`, `~/Library/Caches`, `~/Library/Group Containers` and `~/.cache`. Compare the space used with the size of `~`. If a lot is used outside home, also check `/Applications`, `/opt/homebrew` and `tmutil listlocalsnapshots /`.
 
 2. **Clear self-rebuilding caches without asking.**
