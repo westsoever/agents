@@ -1,7 +1,7 @@
 {
- "generated": "2026-11-24 17:24",
+ "generated": "2026-11-25 12:41",
  "source": "~/.agents/skills",
- "count": 74,
+ "count": 75,
  "how_to_use": "Pick the skills whose description fits the request. manual=true means it only runs when typed as /name.",
  "skills": [
   {
@@ -381,6 +381,12 @@
    "description": "Researches a question properly. Before searching, it sharpens the question (type, scope, population or context, what counts as an answer, feasibility), using Megan Peters' method for developing good research questions (Nature Human Behaviour, 2025). Then it reads widely and closely with primary sources, and writes an answer-first result with linked evidence and open questions. In the COS vault it files the result as a research note in 04-Resources/Library/Research/. Use when the user says \"research this\", \"look into\", \"find out whether\", \"what does the evidence say about\", \"dig into\", \"is it true that\", or types /research.",
    "manual": false,
    "path": "~/.agents/skills/research"
+  },
+  {
+   "name": "research-report",
+   "description": "Turns research into a typeset PDF report (LaTeX, built with xelatex) in the house style of the Giving in Denmark and Tamari copycat-protection reports - draft label, open-questions box, answer first, numbered evidence sections, clickable [S1] citations, linked source list, optional project logo top right. Input is either the research in the current chat or a folder (or note) the owner points at. The research note is the only source of content; the template sets the form only. Use when the owner types /research-report, or asks to \"make a report/PDF of this research\", \"turn this into a report like the Giving in Denmark one\", \"compile the research into a .tex/.pdf\".",
+   "manual": false,
+   "path": "~/.agents/skills/research-report"
   },
   {
    "name": "sheets-dashboard",

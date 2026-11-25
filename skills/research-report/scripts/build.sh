@@ -55,7 +55,7 @@ for i in 1 2; do
   fi
 done
 over="$(grep -c 'Overfull' "$base.log" || true)"
-undef="$(grep -c 'undefined' "$base.log" || true)"
+undef="$(grep -cE '(Reference|Citation).*undefined' "$base.log" || true)"
 rm -f "$base.aux" "$base.log" "$base.out"
 pages="$(pdfinfo "$base.pdf" 2>/dev/null | awk '/^Pages/ {print $2}')"
 echo "built: $dir/$base.pdf (${pages:-?} pages; overfull boxes: $over; undefined refs: $undef)"
