@@ -1,0 +1,137 @@
+% <<TITLE>>: <<SUBTITLE>>
+% Build: bash ~/.agents/skills/research-report/scripts/build.sh <this file>  (runs xelatex twice; fonts in fonts/, OFL)
+% Source of truth: <<PATH TO RESEARCH NOTE>>. Every claim here must exist in that note first.
+% Citing: \src{S1} makes a clickable [S1] that jumps to the source list; each source there links to its URL.
+% To add a source: add a \source{Sx}{citation}{url} line at the bottom, then cite it with \src{Sx}.
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[margin=2.4cm]{geometry}
+\usepackage{fontspec}
+\setmainfont{Inter}[Path=fonts/, Extension=.otf, UprightFont=*-Regular, BoldFont=*-Bold,
+  ItalicFont=*-Italic, BoldItalicFont=*-BoldItalic]
+\usepackage{microtype}
+\usepackage[table]{xcolor}
+\usepackage{booktabs, tabularx, array}
+\usepackage{titlesec, enumitem, fancyhdr, tcolorbox}
+\usepackage{parskip}
+\usepackage{xurl}
+\usepackage{tikz}
+
+% Colours. Default teal; use the project's brand colours when it has them
+% (accent: a dark brand colour that reads as small text; soft: a pale tint for boxes; muted: secondary text).
+\definecolor{accent}{HTML}{0F6E6E}
+\definecolor{soft}{HTML}{EEF5F5}
+\definecolor{muted}{HTML}{5B6770}
+\definecolor{ink}{HTML}{0F1220}
+
+\usepackage[colorlinks=true, linkcolor=accent, urlcolor=accent, citecolor=accent,
+  pdftitle={<<TITLE>>: <<SUBTITLE>>}]{hyperref}
+
+\linespread{1.12}
+\setlist{itemsep=0.25em, topsep=0.3em}
+\renewcommand{\arraystretch}{1.25}
+\setlength{\tabcolsep}{6pt}
+
+\titleformat{\section}{\Large\bfseries\color{accent}}{}{0pt}{}[\vspace{-0.4em}{\color{accent}\titlerule[0.6pt]}]
+\titleformat{\subsection}{\large\bfseries}{}{0pt}{}
+\titlespacing*{\section}{0pt}{1.6em}{0.6em}
+\titlespacing*{\subsection}{0pt}{1.1em}{0.3em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyfoot[L]{\footnotesize\color{muted}<<SHORT TITLE>> \textbar{} draft <<YYYY-MM-DD>>}
+\fancyfoot[R]{\footnotesize\color{muted}\thepage}
+
+% Citations: clickable [S1] linking to the source list.
+\newcommand{\src}[1]{\hyperlink{src:#1}{[#1]}}
+% One entry in the source list: key, citation text, URL.
+\newcommand{\source}[3]{\item[\hypertarget{src:#1}{\textbf{\textcolor{accent}{[#1]}}}] #2 \\ \url{#3}}
+\newenvironment{sources}{\begin{description}[leftmargin=2.6em, labelwidth=2.6em, itemsep=0.5em, font=\normalfont]}{\end{description}}
+
+% Evidence level after a claim, e.g. \lvl{vendor survey}; our own reasoning gets \inferred.
+\newcommand{\lvl}[1]{\textcolor{muted}{(#1)}}
+\newcommand{\inferred}{\textcolor{muted}{\emph{(inferred)}}}
+\newtcolorbox{callout}[1][]{colback=soft, colframe=accent, boxrule=0pt, leftrule=3pt,
+  arc=0pt, left=10pt, right=10pt, top=6pt, bottom=6pt, #1}
+
+% Logo, top right of page 1. Empty by default. Fill it only from the project's design source
+% (an SVG file or brand config), never from a screenshot. scripts/svg2tikz.py turns SVG paths into
+% the \fill lines; see SKILL.md "Logo". Example with a mark plus a name in a brand font:
+%   \newfontfamily\brandtext{BrandFont-SemiBold}[Path=fonts/, Extension=.ttf]
+%   \newcommand{\logomark}[1]{\begin{tikzpicture}[x=1pt, y=1pt, scale=#1/24, baseline={#1pt*4.2/24}]
+%     \fill[ink] ... ;   % output of svg2tikz.py
+%   \end{tikzpicture}}
+%   \newcommand{\reportlogo}{\mbox{\logomark{15.4}\hspace{6.2pt}{\brandtext\fontsize{14}{14}\selectfont\color{ink}Name}}}
+\newcommand{\reportlogo}{}
+
+\begin{document}
+
+% ---------------------------------------------------------------- title
+{\color{accent}\bfseries\small DRAFT FOR REVIEW \quad\textbar\quad <<DATE IN CAPITALS, e.g. 25 NOVEMBER 2026>>\hfill\normalcolor\reportlogo\par}
+\vspace{0.4em}
+{\fontsize{26}{30}\selectfont\bfseries <<TITLE>>\par}
+{\fontsize{15}{19}\selectfont\color{muted} <<SUBTITLE>>\par}
+\vspace{0.6em}
+{\small\color{muted} <<WHO IT IS WRITTEN FOR, ONE SENTENCE>>. Every claim carries a clickable source reference and an
+evidence level. Our own reasoning is marked \emph{(inferred)}.\par}
+
+% ---------------------------------------------------------------- open questions
+% Only the note's open questions for review. Drop the box if the note has none.
+\begin{callout}
+\textbf{Open questions for review} (none blocked this draft)
+\begin{enumerate}[leftmargin=1.6em, itemsep=0.15em]
+  \item \textbf{<<Short label.>>} <<One or two sentences.>>
+\end{enumerate}
+\end{callout}
+
+% ---------------------------------------------------------------- answer first
+\section{Answer first}
+\begin{itemize}
+  \item \textbf{<<Lead.>>} <<The note's answer-first bullets, with numbers and \src{S1}.>>
+  \item \textbf{Confidence: <<high|medium|low>>.} <<One-line reason, from the note.>>
+\end{itemize}
+
+% ---------------------------------------------------------------- scope
+\section{Question and scope}
+<<The note's sharpened question: question, type, scope, out of scope. If the question was reframed, say how and why.>>
+
+% ---------------------------------------------------------------- evidence
+% One numbered section per part of the note's evidence, in the note's order and with its headings.
+\section{1. <<Evidence heading from the note>>}
+\begin{itemize}
+  \item \textbf{<<Claim.>>} <<Detail>> \src{S1}. \lvl{<<evidence level>>}
+\end{itemize}
+
+% A table only for figures the note already lists side by side. No new columns, no mapping rows.
+% \begin{center}
+% \begin{tabularx}{0.8\textwidth}{>{\raggedright\arraybackslash}X r}
+% \toprule
+% Finding & Value \\
+% \midrule
+% <<row>> & <<value>> \\
+% \bottomrule
+% \end{tabularx}
+% \end{center}
+% {\footnotesize\color{muted} Source: \src{S1}.\par}
+
+% ---------------------------------------------------------------- limits
+\section{Alternative explanations and limits}
+\begin{itemize}
+  \item <<From the note.>>
+\end{itemize}
+
+\section{Open questions}
+\begin{itemize}
+  \item <<From the note.>>
+\end{itemize}
+
+% ---------------------------------------------------------------- sources
+\section{Sources}
+\begin{sources}
+\source{S1}{<<Author. ``Title''. Publisher, date. Primary|Secondary; evidence level.>>}{<<https://...>>}
+\end{sources}
+
+\textbf{Not opened:} <<sources the note lists as not read, or drop this line>>.
+
+\end{document}
