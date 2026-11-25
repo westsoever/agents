@@ -27,6 +27,11 @@ invites claims that exist only to make the report look like the other one. That 
   out any template block the note has nothing for. Never add a table column, row, box or section
   to make the layout match an earlier report.
 - **Tables only for figures the note already lists side by side.**
+- **Only what anyone could find on the web.** A report is an independent look at public sources.
+  Facts found in the owner's own files, local repos, drive or private accounts (a broken link
+  found with `gh`, an undecided licence in a repo comment, an internal to-do) are not findings.
+  Tell the owner about them in chat as action items; keep them out of the note and the report.
+  The project's own public pages (its live website, public docs) may be used and cited as a source.
 - **Shorten, don't strengthen.** Shortening for the page is fine; a stronger verb, a dropped
   caveat, or a lost evidence label is not. Keep every `(inferred)`, evidence level and
   "not read" note.
@@ -78,7 +83,10 @@ The parts, in order (drop any the note has nothing for):
 
 1. Title block: `DRAFT FOR REVIEW | <date>`, title, subtitle, one line on who it is for and how
    to read the evidence labels.
-2. Open questions for review: the note's open questions, as a box.
+2. Open questions for review: only questions about the research itself (which data edition to
+   lead with, which sources may be used, a scope choice). Not action items or business decisions;
+   those go in "Open questions" or a recommendations section if the note has them, or to chat.
+   No such questions, no box.
 3. Answer first: the note's bullets, with numbers, sources and the confidence line.
 4. Question and scope: the sharpened question, and the reframing if there was one.
 5. Numbered evidence sections: one per evidence section in the note, with its heading and order.

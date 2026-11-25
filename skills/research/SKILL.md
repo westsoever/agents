@@ -8,6 +8,7 @@ description: Researches a question properly. Before searching, it sharpens the q
 Turns a loose question into a sharp one, answers it from sources, and says how sure the answer is. The method comes from Peters, M. A. K. (2025). How to develop good research questions. *Nature Human Behaviour* 9, 1759-1761. https://doi.org/10.1038/s41562-025-02292-5. Her four phases map onto steps 1 to 4 below, and her four traps are the checks in step 5.
 
 Hard rules:
+- **Evidence is what anyone could find on the web.** The owner's own files, local repos, drive or private accounts are not evidence. If you notice something there (a broken link, an internal gap), tell the owner in chat as an action item and keep it out of the result. Existing vault notes may be linked under `Related:`, not cited as findings.
 - **Never fabricate a source, quote, number, author, DOI or URL.** Cite only what you opened in this session. If you could not open a source, say "not read, cited from <where>".
 - Primary sources first: the paper, dataset, spec, official docs, statute, or company filing. A news article or blog post about a paper is a pointer to the paper, not evidence.
 - Give every source a date (published or last updated). Flag anything older than the field moves (for example, more than 2 years for AI tools, more than 10 for medicine) as possibly stale.
