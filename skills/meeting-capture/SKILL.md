@@ -35,7 +35,7 @@ Go through the events in order. Each one is a **candidate**, a **TechBBQ-only ca
 | No attendee other than Lennert, after dropping group addresses (below) | skip: no other attendee |
 | Lennert accepted, or `organizer.self: true` | candidate |
 
-**Group addresses** are not people: drop them from the attendee list. They include mailing lists and shared mailboxes (`core@`, `calendar@`, `team@`, `info@`, an address whose `displayName` names a group such as "Long-term interns & Volunteers") and project mailboxes (`<project>.app@`, `hello@`). Drop attendees with `resource: true` as well. If you are unsure, keep the address as plain text and never link it.
+**Group addresses** are not people: drop them from the attendee list. They include mailing lists and shared mailboxes (`core@`, `calendar@`, `team@`, `info@`, an address whose `displayName` names a group such as "Volunteers" or "All staff") and project mailboxes (`<project>.app@`, `hello@`). Drop attendees with `resource: true` and attendees whose `responseStatus` is `declined` as well. If you are unsure, keep the address as plain text and never link it.
 
 **TechBBQ-only:** if every remaining attendee other than Lennert has an `@techbbq.org` address, the meeting is TechBBQ work. List it under its own heading in the plan and write it only if the owner says yes to that meeting.
 
@@ -44,7 +44,7 @@ Go through the events in order. Each one is a **candidate**, a **TechBBQ-only ca
 Read the frontmatter of every note in `04-Resources/Library/Meetings/`. A candidate already has a note if any of these is true:
 - a note has `calendar_id:` equal to the event `id`;
 - a note has the same `date:` and its `start`-`end` overlaps the event's time (Wispr recordings start a few minutes late and carry their own title, so a title check alone misses them);
-- a note on the same date has a title that shares the main words of the event title ("Project Oasis Weekly" and "Project Oasis Weekly Meeting");
+- a note on the same date has a title that shares the main words of the event title ("Board Weekly" and "Board Weekly Meeting");
 - the file `YYYY-MM-DD <title>.md` from step 5 already exists.
 
 If one of these matches, skip the candidate with the reason "has a note: [[<note title>]]". If a match is only likely (same date, similar title, no time overlap), skip it and say so, so the owner can decide.
@@ -54,7 +54,7 @@ If one of these matches, skip the candidate with the reason "has a note: [[<note
 For each remaining attendee, in this order:
 1. **Email:** read `email:` from every card in `05-Knowledge/People/` (never `08-Archive/`). The key can be a scalar (`email: a@b.dk`), an inline list (`email: [a@b.dk]`) or a block list. Compare addresses case-insensitively. One card matches: link it. Several cards match: plain text, and flag it.
 2. **Name:** only if the attendee has a `displayName`. Run `~/.polychef/cos-lookup/cos-lookup find "<displayName>"`. If exactly one `[person]` result under `05-Knowledge/People/` has that full name as its title or an alias in `Also appears as:`, link it. If the top result has a different name, or more than one card fits, use plain text. Don't derive a name from the email address (`abc@`, `firstname.x123@`): such matches are guesses.
-3. **Otherwise** write the `displayName`, or else the address, as plain text. In the dry run, you may add "possible card: [[X]]" for the owner, so he can add `email:` to that card. Don't put that in the note.
+3. **Otherwise** write the `displayName`, or else the address, as plain text. In the dry run only, you may add "possible card (unverified): [[X]]" when a card's first name or `Also appears as:` alias resembles the address, so the owner can add `email:` to that card. It is a hint, never a link, and never goes in the note.
 
 Lennert himself is always the plain `Lennert`, first in the list. He has no card.
 
@@ -89,7 +89,7 @@ From the calendar invite: <organiser>, <time range>, <where: Meet link or locati
 <the event description as plain text: strip HTML tags, keep lists and links. Leave out dial-in numbers, PINs and Meet boilerplate. If the description is empty, write "No agenda in the invite.">
 
 ## Notes
-No recording note was found for this meeting.
+No recording note linked.
 ```
 
 Rules for the layout (from `CLAUDE.md` and `05-Knowledge/cos-schema.md`):
