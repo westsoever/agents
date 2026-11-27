@@ -1,7 +1,7 @@
 {
- "generated": "2026-11-27 11:13",
+ "generated": "2026-11-27 17:45",
  "source": "~/.agents/skills",
- "count": 76,
+ "count": 77,
  "how_to_use": "Pick the skills whose description fits the request. manual=true means it only runs when typed as /name.",
  "skills": [
   {
@@ -279,6 +279,12 @@
    "description": "Agent Media OS, the single skill for every media need in a HyperFrames project. Resolve BGM, SFX, image, icon, brand logo, voice, color grade, or LUT into a frozen local file or paste-ready block + ledger record (one verb, `resolve`); generate via TTS / music / image models when the catalog misses; produce voiceover, transcription, captions, and background removal through one shared audio engine; operate on media (cut / reframe / transform); and reuse assets across projects. Also use for vague feedback that real footage looks dark, flat, boring, should feel retro/camcorder/print/ASCII, needs privacy, or needs a media reveal.",
    "manual": false,
    "path": "~/.agents/skills/media-use"
+  },
+  {
+   "name": "meeting-capture",
+   "description": "Turns the calendar events Lennert attended into meeting notes in the COS vault (04-Resources/Library/Meetings/), so 'who did I meet this week?' can be answered from the vault and the People notes instead of the calendar. Run it in ~/cos. Reads Google Calendar for a day or range (default yesterday), keeps only real meetings he accepted or organised, skips ones that already have a note, links participants to existing People cards by their email: field or an unambiguous name, and writes one note per meeting in the vault's meeting layout. Dry run by default: it lists what it would write and writes nothing until the owner says 'write'. Never creates or edits People cards, never commits or pushes. Use when the owner says 'capture my meetings', 'meeting notes from the calendar', 'log yesterday's meetings', 'who did I meet this week, file it', or types /meeting-capture.",
+   "manual": false,
+   "path": "~/.agents/skills/meeting-capture"
   },
   {
    "name": "merge",
