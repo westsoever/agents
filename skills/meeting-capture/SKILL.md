@@ -13,7 +13,7 @@ Hard rules:
 - **Never create or edit a People card or an org note.** Link to a card only when the match is certain (step 4). Otherwise write the name or address as plain text.
 - **Never overwrite a note.** If the file name exists, the meeting already has a note: skip it.
 - **Read only Lennert's own calendars:** the primary calendar, plus his personal calendar once he has connected it. `list_calendars` also returns colleagues' calendars. Never read those.
-- **cos is the personal vault.** TechBBQ work belongs in `~/bbq/bbqos` (`CRITICAL_FACTS.md`, `SOUL.md`). Never write a TechBBQ-only meeting (step 2) without the owner's explicit yes for that meeting.
+- **TechBBQ meetings are captured too** (owner's decision 2026-11-27), marked `workspace: techbbq` so they can move to `~/bbq/bbqos` later. This departs from `CRITICAL_FACTS.md` and `SOUL.md` ("cos is personal"); don't edit those files.
 - No commit, no push. The owner reviews and commits.
 
 ## 1. Get the events
@@ -22,7 +22,7 @@ Load the tools with ToolSearch (`select:mcp__claude_ai_Google_Calendar__list_eve
 
 ## 2. Keep only attended meetings
 
-Go through the events in order. Each one is a **candidate**, a **TechBBQ-only candidate** or a **skip** with a reason:
+Go through the events in order. Each one is a **candidate** (TechBBQ ones marked) or a **skip** with a reason:
 
 | Event | Result |
 |---|---|
@@ -37,7 +37,7 @@ Go through the events in order. Each one is a **candidate**, a **TechBBQ-only ca
 
 **Group addresses** are not people: drop them from the attendee list. They include mailing lists and shared mailboxes (`core@`, `calendar@`, `team@`, `info@`, an address whose `displayName` names a group such as "Volunteers" or "All staff") and project mailboxes (`<project>.app@`, `hello@`). Drop attendees with `resource: true` and attendees whose `responseStatus` is `declined` as well. If you are unsure, keep the address as plain text and never link it.
 
-**TechBBQ-only:** if every remaining attendee other than Lennert has an `@techbbq.org` address, the meeting is TechBBQ work. List it under its own heading in the plan and write it only if the owner says yes to that meeting.
+**TechBBQ:** if every remaining attendee other than Lennert has an `@techbbq.org` address, the meeting is TechBBQ work. It is a candidate like any other; its note gets `workspace: techbbq` (step 5). Leave that key out of every other note.
 
 ## 3. Skip meetings that already have a note
 
@@ -71,6 +71,7 @@ start: YYYY-MM-DDTHH:MM:SS+01:00
 end: YYYY-MM-DDTHH:MM:SS+01:00
 source: google-calendar
 calendar_id: <event id>
+workspace: techbbq
 participants:
   - Lennert
   - "[[Card Name]]"
@@ -112,9 +113,7 @@ Meeting capture, <range>. Dry run: nothing written.
 Would write (N):
 1. 2026-11-23 <file title>.md: Lennert, [[Card]], plain name, address
    (possible card for address: [[X]])
-
-TechBBQ only, written only on your yes (N):
-1. ...
+2. 2026-11-23 <file title>.md [techbbq]: ...
 
 Skipped (N): <title> (<date>): <reason>, ...
 
@@ -123,4 +122,4 @@ Map: adds N links to the Meetings line in 07-Maps/Areas and Resources.md
 
 Give participants only, never the agenda text, in the plan.
 
-If the owner said "write", or says it now, write the notes in "Would write" and the TechBBQ-only meetings he said yes to, then make the Map edit. Then run `git status --short` and list the new files. Don't stage, commit or push them.
+If the owner said "write", or says it now, write the notes in "Would write", then make the Map edit. Then run `git status --short` and list the new files. Don't stage, commit or push them.
